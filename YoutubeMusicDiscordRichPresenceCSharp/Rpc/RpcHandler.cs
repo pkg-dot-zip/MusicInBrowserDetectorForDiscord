@@ -28,18 +28,6 @@ internal static class RpcHandler
         Client.Initialize();
     }
 
-    // RpcHandler.SetPresence(new RichPresence()
-    // {
-    //     Details = "Example Project",
-    //     State = "csharp example",
-    //     Assets = new Assets()
-    //     {
-    //         LargeImageKey = "image_large",
-    //         LargeImageText = "Lachee's Discord IPC Library",
-    //         SmallImageKey = "image_small"
-    //     },
-    // });
-
     public static void SetSongPresence(CurrentPlayingInfo info)
     {
         SetPresence(new RichPresence()
