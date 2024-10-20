@@ -7,17 +7,22 @@ internal class Program
 {
     public static void Main(string[] args)
     {
-        if (!ChromeHandler.IsChromeRunningWithRemoteDebugging().Result)
+        Run(new ChromeHandler());
+    }
+
+    private static void Run(IBrowser browserHandler)
+    {
+        if (!browserHandler.IsRunning())
         {
-            ChromeHandler.OpenChromeBrowserWithRemoteDebugging();
+            browserHandler.OpenWindow();
         }
 
-        var driver = ChromeHandler.GetChromeInstance();
+        var driver = browserHandler.GetDriver();
 
         Thread.Sleep(5000);
 
         var playingInfo = SongRetriever.FromBrowser(driver);
-        
+
         RpcHandler.Initialize();
 
         if (playingInfo is not null)
@@ -32,5 +37,6 @@ internal class Program
         Console.ReadKey();
 
         RpcHandler.Deinitialize();
+        browserHandler.Close();
     }
 }

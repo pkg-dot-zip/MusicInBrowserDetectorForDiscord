@@ -4,13 +4,12 @@ using OpenQA.Selenium.Chrome;
 
 namespace BrowserLib.Browser;
 
-public static class ChromeHandler
+public class ChromeHandler : IBrowser
 {
-    private const int DefaultPort = 9222;
-
     // TODO: Pass path in params.
     // TODO: Throw if not valid here.
-    public static void OpenChromeBrowserWithRemoteDebugging(int port = DefaultPort)
+    // <inheritdoc>
+    public void OpenWindow(int port)
     {
         string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Default path.
 
@@ -30,7 +29,8 @@ public static class ChromeHandler
         Console.WriteLine($"Chrome started with remote debugging on port {port}.");
     }
 
-    public static IWebDriver GetChromeInstance(int port = DefaultPort)
+    // <inheritdoc>
+    public IWebDriver GetDriver(int port)
     {
         return new ChromeDriver(new ChromeOptions
         {
@@ -38,7 +38,14 @@ public static class ChromeHandler
         });
     }
 
-    public static async Task<bool> IsChromeRunningWithRemoteDebugging(int port = DefaultPort)
+    // <inheritdoc>
+    public bool IsRunning(int port)
+    {
+        return IsRunningAsync(port).Result;
+    }
+
+    // <inheritdoc>
+    public async Task<bool> IsRunningAsync(int port)
     {
         try
         {
@@ -52,5 +59,11 @@ public static class ChromeHandler
         {
             return false;
         }
+    }
+
+    // <inheritdoc>
+    public void Close(int port)
+    {
+        //
     }
 }
