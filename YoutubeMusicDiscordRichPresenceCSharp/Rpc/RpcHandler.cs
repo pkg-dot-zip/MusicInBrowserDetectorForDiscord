@@ -33,7 +33,6 @@ internal static class RpcHandler
         SetPresence(new RichPresence()
         {
             Details = $"{info.Artist} - {info.Title}",
-            State = $"{info.Album}",
             Assets = new Assets()
             {
                 LargeImageKey = $"{info.ArtworkUrl}",
