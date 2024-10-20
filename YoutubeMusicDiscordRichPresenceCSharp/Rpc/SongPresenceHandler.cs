@@ -57,6 +57,7 @@ internal static class SongPresenceHandler
 
     public static RichPresence GetSongPresence(CurrentPlayingInfo info)
     {
+        // TODO: Change type to listening once it is released in the new version of rpc c#.
         return new RichPresence()
         {
             Details = GetPresenceDetails(info),
