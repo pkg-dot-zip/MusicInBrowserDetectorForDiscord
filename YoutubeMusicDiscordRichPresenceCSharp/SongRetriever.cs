@@ -68,13 +68,28 @@ public class SongRetriever
 
         var mediaInfo = (Dictionary<string, object>)driver.ExecuteScript(timeScript);
 
-        Console.WriteLine($"Current Time: {mediaInfo["currentTime"]} seconds");
-        Console.WriteLine($"Total Duration: {mediaInfo["duration"]} seconds");
-        Console.WriteLine($"Remaining Time: {mediaInfo["remainingTime"]} seconds");
+        // Declaration + default values in case parsing fails.
+        double currentTime = 1;
+        double durationTime = 300;
+        double remainingTime = durationTime - currentTime;
 
-        var currentTime = double.Parse(mediaInfo["currentTime"].ToString()); // TODO: Throw if invalid!
-        var durationTime = double.Parse(mediaInfo["duration"].ToString());
-        var remainingTime = double.Parse(mediaInfo["remainingTime"].ToString());
+        if (mediaInfo is not null)
+        {
+            try
+            {
+                currentTime = double.Parse(mediaInfo["currentTime"].ToString() ?? string.Empty);
+                durationTime = double.Parse(mediaInfo["duration"].ToString() ?? string.Empty);
+                remainingTime = double.Parse(mediaInfo["remainingTime"].ToString() ?? string.Empty);
+            }
+            catch
+            {
+                Console.WriteLine("Couldn't retrieve time. Are you on YTM?");
+            }
+        }
+
+        Console.WriteLine($"Current Time: {currentTime} seconds");
+        Console.WriteLine($"Total Duration: {durationTime} seconds");
+        Console.WriteLine($"Remaining Time: {remainingTime} seconds");
 
         return (currentTime, durationTime, remainingTime);
     }
