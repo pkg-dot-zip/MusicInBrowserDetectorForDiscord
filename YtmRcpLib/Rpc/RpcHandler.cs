@@ -5,26 +5,17 @@ namespace YtmRcpLib.Rpc;
 
 public static class RpcHandler
 {
-    private static readonly DiscordRpcClient Client = new DiscordRpcClient("1297469080273420329");
+    private static readonly DiscordRpcClient Client = new("1297469080273420329");
 
     public static void Initialize()
     {
-        //Set the logger
         Client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
-        //Subscribe to events
-        Client.OnReady += (sender, e) =>
-        {
-            Console.WriteLine("Received Ready from user {0}", e.User.Username);
-        };
+        Client.OnReady += (_, e) => { Console.WriteLine("Received Ready from user {0}", e.User.Username); };
 
-        Client.OnPresenceUpdate += (sender, e) =>
-        {
-            Console.WriteLine("Received Update! {0}", e.Presence);
-        };
+        Client.OnPresenceUpdate += (_, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
 
-        //Connect to the RPC
-        Client.Initialize();
+        Client.Initialize(); //Connect to the RPC.
     }
 
     public static void SetPresence(RichPresence presence)

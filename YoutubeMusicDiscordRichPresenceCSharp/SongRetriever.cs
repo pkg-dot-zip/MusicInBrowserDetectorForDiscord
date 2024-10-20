@@ -6,18 +6,19 @@ namespace YoutubeMusicDiscordRichPresenceCSharp;
 public class SongRetriever
 {
     public static CurrentPlayingInfo? FromBrowser(IWebDriver driver) => FromBrowser((IJavaScriptExecutor)driver);
+
     public static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
     {
         if (!GetWindowUrl(driver).Contains("music.youtube")) return null;
 
         const string metadataScript = """
-                                          return navigator.mediaSession.metadata ? {
-                                              title: navigator.mediaSession.metadata.title,
-                                              artist: navigator.mediaSession.metadata.artist,
-                                              album: navigator.mediaSession.metadata.album,
-                                              artwork: navigator.mediaSession.metadata.artwork[0].src
-                                          } : null;
-                              """;
+                                                  return navigator.mediaSession.metadata ? {
+                                                      title: navigator.mediaSession.metadata.title,
+                                                      artist: navigator.mediaSession.metadata.artist,
+                                                      album: navigator.mediaSession.metadata.album,
+                                                      artwork: navigator.mediaSession.metadata.artwork[0].src
+                                                  } : null;
+                                      """;
 
         var metadata = (Dictionary<string, object>)driver.ExecuteScript(metadataScript);
 
@@ -30,7 +31,7 @@ public class SongRetriever
             // Set base information.
             var playingInfo = new CurrentPlayingInfo()
             {
-                Title = metadata["title"] as string ?? string.Empty, // TODO: Throw instead!
+                Title = metadata["title"] as string ?? string.Empty,
                 Artist = metadata["artist"] as string ?? string.Empty,
                 Album = metadata["album"] as string ?? string.Empty,
                 ArtworkUrl = metadata["artwork"] as string ?? string.Empty

@@ -19,9 +19,9 @@ public static class SongPresenceHandler
 
     private static List<Button> GetPresenceButtons(CurrentPlayingInfo info)
     {
-        List<Button> buttons = new List<Button>(3);
+        var buttons = new List<Button>(3);
 
-        if (info.SongUrl is not null && info.SongUrl != string.Empty) // TODO: Can not be null. Remove!
+        if (info.SongUrl != string.Empty)
         {
             Console.WriteLine("Adding listen on YT button.");
             buttons.Add(new Button()
@@ -63,8 +63,5 @@ public static class SongPresenceHandler
         };
     }
 
-    private static string GetPresenceDetails(CurrentPlayingInfo info)
-    {
-        return $"{info.Artist} - {info.Title}";
-    }
+    private static string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.Artist} - {info.Title}";
 }

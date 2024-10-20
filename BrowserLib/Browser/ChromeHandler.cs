@@ -41,23 +41,21 @@ public class ChromeHandler : IBrowser
     }
 
     // <inheritdoc>
-    public bool IsRunning(int port)
-    {
-        return IsRunningAsync(port).Result;
-    }
+    public bool IsRunning(int port) => IsRunningAsync(port).Result;
 
     // <inheritdoc>
     public async Task<bool> IsRunningAsync(int port)
     {
         try
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync($"http://localhost:{port}/json");
                 return response.IsSuccessStatusCode;
             }
         }
-        catch (HttpRequestException) // If an exception occurs (e.g., connection failure), Chrome is not running on the specified port.
+        // If an exception occurs (e.g., connection failure), Chrome is not running on the specified port.
+        catch (HttpRequestException)
         {
             return false;
         }
