@@ -1,6 +1,4 @@
-﻿using DiscordRPC;
-using OpenQA.Selenium;
-using YoutubeMusicDiscordRichPresenceCSharp.Browser;
+﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YoutubeMusicDiscordRichPresenceCSharp.Models;
 using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
@@ -25,7 +23,7 @@ internal class Program
 
         if (playingInfo is not null)
         {
-            RpcHandler.SetSongPresence(playingInfo);
+            RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(playingInfo));
         }
         else
         {

@@ -8,7 +8,7 @@ public class CurrentPlayingInfo
     public string Title { get; set; } = string.Empty;
     public string Album { get; set; } = string.Empty;
     public string ArtworkUrl { get; set; } = string.Empty;
-
+    public string SongUrl { get; set; } = string.Empty;
     public double CurrentTime { get; set; } // In seconds.
     public double DurationTime { get; set; } // In seconds.
     public double RemainingTime { get; set; } // In seconds.
@@ -35,7 +35,7 @@ public class CurrentPlayingInfo
 
             var playingInfo = new CurrentPlayingInfo()
             {
-                Title = metadata["title"] as string ?? string.Empty,
+                Title = metadata["title"] as string ?? string.Empty, // TODO: Throw instead!
                 Artist = metadata["artist"] as string ?? string.Empty,
                 Album = metadata["album"] as string ?? string.Empty,
                 ArtworkUrl = metadata["artwork"] as string ?? string.Empty
@@ -62,9 +62,37 @@ public class CurrentPlayingInfo
                 Console.WriteLine($"Total Duration: {mediaInfo["duration"]} seconds");
                 Console.WriteLine($"Remaining Time: {mediaInfo["remainingTime"]} seconds");
 
-                playingInfo.CurrentTime = double.Parse(mediaInfo["currentTime"].ToString());
+                playingInfo.CurrentTime = double.Parse(mediaInfo["currentTime"].ToString()); // TODO: Throw if invalid!
                 playingInfo.DurationTime = double.Parse(mediaInfo["duration"].ToString());
                 playingInfo.RemainingTime = double.Parse(mediaInfo["remainingTime"].ToString());
+            }
+            else
+            {
+                Console.WriteLine("Couldn't find time info.");
+            }
+
+            const string urlScript = """
+                                     const videoElement = document.querySelector('video');
+                                     if (videoElement) {
+                                         const videoId = videoElement.baseURI.split("v=")[1]?.split("&")[0];  // Extract the videoId in this convoluted way :/
+                                         if (videoId) {
+                                             return `https://music.youtube.com/watch?v=${videoId}`;
+                                         }
+                                     }
+                                     return null;
+                                     """;
+
+            var urlInfo = (string)driver.ExecuteScript(urlScript);
+
+            if (urlInfo is not null)
+            {
+                playingInfo.SongUrl = urlInfo; // TODO: Throw instead!
+
+                Console.WriteLine($"Song url: {playingInfo.SongUrl}");
+            }
+            else
+            {
+                Console.WriteLine("Couldn't find song url.");
             }
 
             return playingInfo;

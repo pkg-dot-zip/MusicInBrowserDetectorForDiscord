@@ -28,32 +28,6 @@ internal static class RpcHandler
         Client.Initialize();
     }
 
-    public static void SetSongPresence(CurrentPlayingInfo info)
-    {
-        SetPresence(new RichPresence()
-        {
-            Details = $"{info.Artist} - {info.Title}",
-            Timestamps = new Timestamps()
-            {
-                Start = DateTime.UtcNow.AddSeconds(-info.DurationTime) // TODO: Fix. This time is wrong!
-            },
-            Assets = new Assets()
-            {
-                LargeImageKey = $"{info.ArtworkUrl}",
-                LargeImageText = $"{info.Album}",
-                SmallImageKey = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-music-icon.png",
-            },
-            Buttons = new Button[]
-            {
-                new Button()
-                {
-                    Label = "Install YTM RPC Client",
-                    Url = "https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp",
-                }
-            }
-        });
-    }
-
     public static void SetPresence(RichPresence presence)
     {
         Client.SetPresence(presence);
