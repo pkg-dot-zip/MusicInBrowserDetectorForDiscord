@@ -1,5 +1,6 @@
 ﻿using DiscordRPC.Logging;
 using DiscordRPC;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
@@ -25,6 +26,33 @@ internal static class RpcHandler
 
         //Connect to the RPC
         Client.Initialize();
+    }
+
+    // RpcHandler.SetPresence(new RichPresence()
+    // {
+    //     Details = "Example Project",
+    //     State = "csharp example",
+    //     Assets = new Assets()
+    //     {
+    //         LargeImageKey = "image_large",
+    //         LargeImageText = "Lachee's Discord IPC Library",
+    //         SmallImageKey = "image_small"
+    //     },
+    // });
+
+    public static void SetSongPresence(CurrentPlayingInfo info)
+    {
+        SetPresence(new RichPresence()
+        {
+            Details = $"{info.Artist} - {info.Title}",
+            State = $"{info.Album}",
+            Assets = new Assets()
+            {
+                LargeImageKey = $"{info.ArtworkUrl}",
+                LargeImageText = "Lachee's Discord IPC Library",
+                SmallImageKey = "image_small"
+            },
+        });
     }
 
     public static void SetPresence(RichPresence presence)
