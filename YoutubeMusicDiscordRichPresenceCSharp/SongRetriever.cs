@@ -1,18 +1,10 @@
 ﻿using OpenQA.Selenium;
+using YtmRcpLib.Models;
 
-namespace YoutubeMusicDiscordRichPresenceCSharp.Models;
+namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public class CurrentPlayingInfo
+public class SongRetriever
 {
-    public string Artist { get; set; } = string.Empty;
-    public string Title { get; set; } = string.Empty;
-    public string Album { get; set; } = string.Empty;
-    public string ArtworkUrl { get; set; } = string.Empty;
-    public string SongUrl { get; set; } = string.Empty;
-    public double CurrentTime { get; set; } // In seconds.
-    public double DurationTime { get; set; } // In seconds.
-    public double RemainingTime { get; set; } // In seconds.
-
     public static CurrentPlayingInfo? FromBrowser(IWebDriver driver) => FromBrowser((IJavaScriptExecutor)driver);
     public static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
     {

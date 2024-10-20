@@ -13,4 +13,9 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="130.0.6723.5800" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BrowserLib\BrowserLib.csproj" />
+    <ProjectReference Include="..\YtmRcpLib\YtmRcpLib.csproj" />
+  </ItemGroup>
+
 </Project>

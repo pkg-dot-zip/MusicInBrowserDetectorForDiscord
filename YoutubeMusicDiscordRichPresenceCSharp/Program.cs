@@ -1,6 +1,5 @@
-﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
-using YoutubeMusicDiscordRichPresenceCSharp.Models;
-using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
+﻿using BrowserLib.Browser;
+using YtmRcpLib.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
@@ -17,7 +16,7 @@ internal class Program
 
         Thread.Sleep(5000);
 
-        var playingInfo = CurrentPlayingInfo.FromBrowser(driver);
+        var playingInfo = SongRetriever.FromBrowser(driver);
         
         RpcHandler.Initialize();
 

@@ -1,10 +1,9 @@
-﻿using DiscordRPC.Logging;
-using DiscordRPC;
-using YoutubeMusicDiscordRichPresenceCSharp.Models;
+﻿using DiscordRPC;
+using DiscordRPC.Logging;
 
-namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
+namespace YtmRcpLib.Rpc;
 
-internal static class RpcHandler
+public static class RpcHandler
 {
     private static readonly DiscordRpcClient Client = new DiscordRpcClient("1297469080273420329");
 

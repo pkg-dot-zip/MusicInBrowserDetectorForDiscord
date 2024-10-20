@@ -2,9 +2,9 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
+namespace BrowserLib.Browser;
 
-internal static class ChromeHandler
+public static class ChromeHandler
 {
     private const int DefaultPort = 9222;
 

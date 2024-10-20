@@ -1,9 +1,9 @@
 ﻿using DiscordRPC;
-using YoutubeMusicDiscordRichPresenceCSharp.Models;
+using YtmRcpLib.Models;
 
-namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
+namespace YtmRcpLib.Rpc;
 
-internal static class SongPresenceHandler
+public static class SongPresenceHandler
 {
     public static RichPresence GetSongPresence(CurrentPlayingInfo info)
     {
