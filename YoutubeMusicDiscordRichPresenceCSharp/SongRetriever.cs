@@ -8,6 +8,8 @@ public class SongRetriever
     public static CurrentPlayingInfo? FromBrowser(IWebDriver driver) => FromBrowser((IJavaScriptExecutor)driver);
     public static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
     {
+        if (!GetWindowUrl(driver).Contains("music.youtube")) return null;
+
         const string metadataScript = """
                                           return navigator.mediaSession.metadata ? {
                                               title: navigator.mediaSession.metadata.title,
@@ -50,6 +52,11 @@ public class SongRetriever
         return null;
     }
 
+    private static string GetWindowUrl(IJavaScriptExecutor driver)
+    {
+        var url = (string)driver.ExecuteScript("return window.location.href;");
+        return url ?? string.Empty;
+    }
 
     private static (double, double, double) GetTimeInfo(IJavaScriptExecutor driver)
     {
