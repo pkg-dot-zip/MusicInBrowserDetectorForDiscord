@@ -6,6 +6,8 @@ namespace BrowserLib.Browser;
 
 public class ChromeHandler : IBrowser
 {
+    private ChromeDriver? _driver;
+
     // TODO: Pass path in params.
     // TODO: Throw if not valid here.
     // <inheritdoc>
@@ -32,7 +34,7 @@ public class ChromeHandler : IBrowser
     // <inheritdoc>
     public IWebDriver GetDriver(int port)
     {
-        return new ChromeDriver(new ChromeOptions
+        return _driver ??= new ChromeDriver(new ChromeOptions
         {
             DebuggerAddress = $"localhost:{port}"
         });

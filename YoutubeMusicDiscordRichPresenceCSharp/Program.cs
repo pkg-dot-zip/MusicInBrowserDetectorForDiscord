@@ -5,38 +5,50 @@ namespace YoutubeMusicDiscordRichPresenceCSharp;
 
 internal class Program
 {
+    private static readonly IBrowser BrowserHandler = new ChromeHandler();
+
     public static void Main(string[] args)
     {
-        Run(new ChromeHandler());
+        Run(BrowserHandler);
     }
 
     private static void Run(IBrowser browserHandler)
     {
-        if (!browserHandler.IsRunning())
-        {
-            browserHandler.OpenWindow();
-        }
+        Initialize();
 
-        var driver = browserHandler.GetDriver();
+        if (!browserHandler.IsRunning()) browserHandler.OpenWindow();
 
         Thread.Sleep(5000);
 
-        var playingInfo = SongRetriever.FromBrowser(driver);
+        while (true)
+        {
+            var playingInfo = SongRetriever.FromBrowser(browserHandler.GetDriver());
 
+
+            if (playingInfo is not null)
+            {
+                RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(playingInfo));
+            }
+            else
+            {
+                Console.WriteLine("Couldn't find song, thus no rpc set.");
+            }
+
+            Thread.Sleep(5000);
+            if (Console.ReadLine() == "c") break;
+        }
+
+        Deinitialize();
+    }
+
+    private static void Initialize()
+    {
         RpcHandler.Initialize();
+    }
 
-        if (playingInfo is not null)
-        {
-            RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(playingInfo));
-        }
-        else
-        {
-            Console.WriteLine("Couldn't find song, thus no rpc set.");
-        }
-
-        Console.ReadKey();
-
+    private static void Deinitialize()
+    {
         RpcHandler.Deinitialize();
-        browserHandler.Close();
+        BrowserHandler.Close();
     }
 }
