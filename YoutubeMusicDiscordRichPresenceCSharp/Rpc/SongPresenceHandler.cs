@@ -5,6 +5,18 @@ namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
 internal static class SongPresenceHandler
 {
+    public static RichPresence GetSongPresence(CurrentPlayingInfo info)
+    {
+        return new RichPresence()
+        {
+            Type = ActivityType.Listening,
+            Details = GetPresenceDetails(info),
+            Timestamps = GetPresenceTimestamps(info),
+            Assets = GetPresenceAssets(info),
+            Buttons = GetPresenceButtons(info).ToArray()
+        };
+    }
+
     private static List<Button> GetPresenceButtons(CurrentPlayingInfo info)
     {
         List<Button> buttons = new List<Button>(3);
@@ -46,24 +58,13 @@ internal static class SongPresenceHandler
     {
         return new Timestamps()
         {
-            Start = DateTime.UtcNow.AddSeconds(-info.DurationTime) // TODO: Fix. This time is wrong!
+            Start = DateTime.UtcNow.AddSeconds(-info.CurrentTime),
+            End = DateTime.UtcNow.AddSeconds(info.RemainingTime)
         };
     }
 
     private static string GetPresenceDetails(CurrentPlayingInfo info)
     {
         return $"{info.Artist} - {info.Title}";
-    }
-
-    public static RichPresence GetSongPresence(CurrentPlayingInfo info)
-    {
-        // TODO: Change type to listening once it is released in the new version of rpc c#.
-        return new RichPresence()
-        {
-            Details = GetPresenceDetails(info),
-            Timestamps = GetPresenceTimestamps(info),
-            Assets = GetPresenceAssets(info),
-            Buttons = GetPresenceButtons(info).ToArray()
-        };
     }
 }
