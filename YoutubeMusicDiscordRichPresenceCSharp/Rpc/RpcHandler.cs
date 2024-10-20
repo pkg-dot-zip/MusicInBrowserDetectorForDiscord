@@ -49,8 +49,8 @@ internal static class RpcHandler
             Assets = new Assets()
             {
                 LargeImageKey = $"{info.ArtworkUrl}",
-                LargeImageText = "Lachee's Discord IPC Library",
-                SmallImageKey = "image_small"
+                LargeImageText = $"{info.Album}",
+                SmallImageKey = "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-music-icon.png"
             },
         });
     }
