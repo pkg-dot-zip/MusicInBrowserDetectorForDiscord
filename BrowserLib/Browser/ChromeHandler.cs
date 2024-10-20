@@ -66,6 +66,6 @@ public class ChromeHandler : IBrowser
     // <inheritdoc>
     public void Close(int port)
     {
-        //
+        _driver?.Quit();
     }
 }
