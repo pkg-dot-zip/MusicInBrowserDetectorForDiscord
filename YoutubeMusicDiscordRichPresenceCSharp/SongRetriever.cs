@@ -37,6 +37,9 @@ public class SongRetriever
                 ArtworkUrl = metadata["artwork"] as string ?? string.Empty
             };
 
+            // Get paused state.
+            playingInfo.IsPaused = GetPauseState(driver);
+
             // Set the time information.
             var (currentTime, durationTime, remainingTime) = GetTimeInfo(driver);
             playingInfo.CurrentTime = currentTime;
@@ -57,6 +60,22 @@ public class SongRetriever
     {
         var url = (string)driver.ExecuteScript("return window.location.href;");
         return url ?? string.Empty;
+    }
+
+    private static bool GetPauseState(IJavaScriptExecutor driver)
+    {
+        const string pauseScript = """
+                                       const videoElement = document.querySelector('video');
+                                       if (videoElement) {
+                                           return videoElement.paused;  // Check if the video is paused
+                                       } else {
+                                           return null;
+                                       }
+                                   """;
+
+        var isPaused = (bool)driver.ExecuteScript(pauseScript);
+        Console.WriteLine($"Paused: {isPaused}");
+        return isPaused;
     }
 
     private static (double, double, double) GetTimeInfo(IJavaScriptExecutor driver)
