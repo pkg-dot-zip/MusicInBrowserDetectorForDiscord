@@ -10,6 +10,7 @@
   [![Stars](https://img.shields.io/github/stars/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/stargazers)
   [![GitHub Issues](https://img.shields.io/github/issues/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/issues)
   [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/pulls)
+  ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/total)
 
 </div>
 
