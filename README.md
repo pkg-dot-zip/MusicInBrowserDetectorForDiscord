@@ -43,12 +43,12 @@ meaning that you only need to open YouTube Music in your browser and have Discor
 #### Supported Browsers 🕸
 Please feel free to commit a PR to support more browsers, since there are [Selenium](https://www.selenium.dev/selenium/docs/api/dotnet/) webdrivers for other browsers too!
 
-| Browser | Currently Supported |
-| ------- | --------- |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg) Chrome | ✅ |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg) Firefox | ❌ |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg) Edge | ❌ |
-| [<img src="https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png" width="20"/>](https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png) Internet Explorer | ❌ |
+| Browser | Currently Supported | Instructions |
+| ------- | --------- | ----- |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg) Chrome | ✅ | [Here](docs/_instructions_chrome.md) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg) Firefox | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg) Edge | ❌ | -|
+| [<img src="https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png" width="20"/>](https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png) Internet Explorer | ❌ | - |
 
 #### Supported Streaming Services
 Obviously the project's original scope was only YouTube Music, hence it's the only currently supported. Adding support for other services is not a priority. 
@@ -83,7 +83,7 @@ There are indeed already multiple implementations for this. However, most of the
 ## 🎈 Usage <a name="usage"></a>
 1. Open the Discord app. -> _This does not work in your browser!_
 1. Select a browser of your choosing.
-1. Go to the docs folder in this project and look for that browser.
+1. Go to the docs folder in this project and look for that browser. For example the Chrome instructions [here](docs/_instructions_chrome.md).
 1. Follow that one instruction and you're already done. From now on you only have to boot this software and Bob's your uncle!
 
 ## ⛏️ Built Using <a name = "built_using"></a>
