@@ -45,13 +45,26 @@ public static class SongPresenceHandler
 
     private static Assets GetPresenceAssets(CurrentPlayingInfo info)
     {
-        return new Assets()
+        var assets = new Assets()
         {
             LargeImageKey = $"{info.ArtworkUrl}",
             LargeImageText = $"{info.Album}",
-            SmallImageKey =
-                "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-music-icon.png",
         };
+
+
+        if (info.IsPaused)
+        {
+            assets.SmallImageKey = "https://cdn-icons-png.flaticon.com/512/4181/4181163.png";
+            assets.SmallImageText = "Paused";
+        }
+        else
+        {
+            assets.SmallImageKey =
+                "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-music-icon.png";
+            assets.SmallImageText = "Playing";
+        }
+
+        return assets;
     }
 
     private static Timestamps GetPresenceTimestamps(CurrentPlayingInfo info)
