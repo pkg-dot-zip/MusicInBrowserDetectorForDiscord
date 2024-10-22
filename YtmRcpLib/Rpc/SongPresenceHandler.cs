@@ -67,8 +67,10 @@ public static class SongPresenceHandler
         return assets;
     }
 
-    private static Timestamps GetPresenceTimestamps(CurrentPlayingInfo info)
+    private static Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
     {
+        if (info.IsPaused) return null;
+
         return new Timestamps()
         {
             Start = DateTime.UtcNow.AddSeconds(-info.CurrentTime),
