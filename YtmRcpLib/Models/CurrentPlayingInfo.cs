@@ -10,4 +10,6 @@ public class CurrentPlayingInfo
     public double CurrentTime { get; set; } // In seconds.
     public double DurationTime { get; set; } // In seconds.
     public double RemainingTime { get; set; } // In seconds.
+
+    public bool IsPaused { get; set; }
 }
