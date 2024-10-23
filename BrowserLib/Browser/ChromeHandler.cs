@@ -34,10 +34,28 @@ public class ChromeHandler : IBrowser
     // <inheritdoc>
     public IWebDriver GetDriver(int port)
     {
-        return _driver ??= new ChromeDriver(new ChromeOptions
+        if (_driver is not null && _driver.Url.Contains("music.youtube")) return _driver;
+
+        _driver = new ChromeDriver(new ChromeOptions
         {
             DebuggerAddress = $"localhost:{port}"
         });
+
+
+        var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
+
+        foreach (var windowHandle in windowHandles)
+        {
+            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab
+
+            // Skip if the current tab is not YouTube Music.
+            if (!_driver.Url.Contains("music.youtube.com")) continue;
+           
+            Console.WriteLine("Switched to YouTube Music tab.");
+            return _driver;
+        }
+
+        return _driver;
     }
 
     // <inheritdoc>
