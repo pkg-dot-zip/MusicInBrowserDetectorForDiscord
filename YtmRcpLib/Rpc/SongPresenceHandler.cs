@@ -47,10 +47,9 @@ public static class SongPresenceHandler
     {
         var assets = new Assets()
         {
-            LargeImageKey = $"{info.ArtworkUrl}",
-            LargeImageText = $"{info.Album}",
+            LargeImageKey = $"{info.MetaData?.ArtworkUrl}",
+            LargeImageText = $"{info.MetaData?.Album}",
         };
-
 
         if (info.IsPaused)
         {
@@ -70,13 +69,14 @@ public static class SongPresenceHandler
     private static Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
     {
         if (info.IsPaused) return null;
+        if (info.TimeInfo is null) return null;
 
         return new Timestamps()
         {
-            Start = DateTime.UtcNow.AddSeconds(-info.CurrentTime),
-            End = DateTime.UtcNow.AddSeconds(info.RemainingTime)
+            Start = DateTime.UtcNow.AddSeconds(-info.TimeInfo.CurrentTime),
+            End = DateTime.UtcNow.AddSeconds(info.TimeInfo.RemainingTime)
         };
     }
 
-    private static string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.Artist} - {info.Title}";
+    private static string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.MetaData?.Artist} - {info.MetaData?.Title}";
 }

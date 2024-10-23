@@ -46,7 +46,7 @@ public class ChromeHandler : IBrowser
 
         foreach (var windowHandle in windowHandles)
         {
-            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab
+            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab.
 
             // Skip if the current tab is not YouTube Music.
             if (!_driver.Url.Contains("music.youtube.com")) continue;

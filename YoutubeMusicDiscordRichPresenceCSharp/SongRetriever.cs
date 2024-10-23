@@ -11,6 +11,22 @@ public class SongRetriever
     {
         if (!GetWindowUrl(driver).Contains("music.youtube")) return null;
 
+        var playingInfo = new CurrentPlayingInfo
+        {
+            MetaData = GetMetaData(driver),
+            IsPaused = GetPauseState(driver),
+            TimeInfo = GetTimeInfo(driver),
+            SongUrl = GetSongUrl(driver)
+        };
+
+        if (!playingInfo.IsNothing()) return playingInfo;
+        
+        Console.WriteLine("No song is currently playing or metadata is unavailable.");
+        return null;
+    }
+
+    private static MetaData GetMetaData(IJavaScriptExecutor driver)
+    {
         const string metadataScript = """
                                                   return navigator.mediaSession.metadata ? {
                                                       title: navigator.mediaSession.metadata.title,
@@ -20,40 +36,19 @@ public class SongRetriever
                                                   } : null;
                                       """;
 
-        var metadata = (Dictionary<string, object>)driver.ExecuteScript(metadataScript);
+        var retrieval = (Dictionary<string, object>)driver.ExecuteScript(metadataScript);
 
-        if (metadata is not null)
+        Console.WriteLine($"Title: {retrieval["title"]}");
+        Console.WriteLine($"Artist: {retrieval["artist"]}");
+        Console.WriteLine($"Album: {retrieval["album"]}");
+
+        return new MetaData()
         {
-            Console.WriteLine($"Title: {metadata["title"]}");
-            Console.WriteLine($"Artist: {metadata["artist"]}");
-            Console.WriteLine($"Album: {metadata["album"]}");
-
-            // Set base information.
-            var playingInfo = new CurrentPlayingInfo()
-            {
-                Title = metadata["title"] as string ?? string.Empty,
-                Artist = metadata["artist"] as string ?? string.Empty,
-                Album = metadata["album"] as string ?? string.Empty,
-                ArtworkUrl = metadata["artwork"] as string ?? string.Empty
-            };
-
-            // Get paused state.
-            playingInfo.IsPaused = GetPauseState(driver);
-
-            // Set the time information.
-            var (currentTime, durationTime, remainingTime) = GetTimeInfo(driver);
-            playingInfo.CurrentTime = currentTime;
-            playingInfo.DurationTime = durationTime;
-            playingInfo.RemainingTime = remainingTime;
-
-            // Set the url.
-            playingInfo.SongUrl = GetSongUrl(driver);
-
-            return playingInfo;
-        }
-
-        Console.WriteLine("No song is currently playing or metadata is unavailable.");
-        return null;
+            Title = retrieval["title"] as string ?? string.Empty,
+            Artist = retrieval["artist"] as string ?? string.Empty,
+            Album = retrieval["album"] as string ?? string.Empty,
+            ArtworkUrl = retrieval["artwork"] as string ?? string.Empty
+        };
     }
 
     private static string GetWindowUrl(IJavaScriptExecutor driver)
@@ -78,7 +73,7 @@ public class SongRetriever
         return isPaused;
     }
 
-    private static (double, double, double) GetTimeInfo(IJavaScriptExecutor driver)
+    private static TimeInfo GetTimeInfo(IJavaScriptExecutor driver)
     {
         const string timeScript = """
                                   const videoElement = document.querySelector('video');
@@ -118,7 +113,7 @@ public class SongRetriever
         Console.WriteLine($"Total Duration: {durationTime} seconds");
         Console.WriteLine($"Remaining Time: {remainingTime} seconds");
 
-        return (currentTime, durationTime, remainingTime);
+        return new TimeInfo(currentTime, durationTime, remainingTime);
     }
 
     private static string GetSongUrl(IJavaScriptExecutor driver)
