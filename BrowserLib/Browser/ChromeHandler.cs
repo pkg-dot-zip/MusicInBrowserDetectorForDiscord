@@ -32,7 +32,7 @@ public class ChromeHandler : IBrowser
     }
 
     // <inheritdoc>
-    public IWebDriver GetDriver(int port)
+    public WebDriver GetDriver(int port)
     {
         if (_driver is not null && _driver.Url.Contains("music.youtube")) return _driver;
 

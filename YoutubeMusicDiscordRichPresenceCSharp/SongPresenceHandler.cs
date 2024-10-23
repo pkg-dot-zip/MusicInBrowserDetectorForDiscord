@@ -1,32 +1,33 @@
 ﻿using DiscordRPC;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 using YtmRcpLib.Models;
 
-namespace YtmRcpLib.Rpc;
+namespace YoutubeMusicDiscordRichPresenceCSharp;
 
 public static class SongPresenceHandler
 {
-    public static RichPresence GetSongPresence(CurrentPlayingInfo info)
+    public static RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
     {
         return new RichPresence()
         {
             Type = ActivityType.Listening,
             Details = GetPresenceDetails(info),
             Timestamps = GetPresenceTimestamps(info),
-            Assets = GetPresenceAssets(info),
-            Buttons = GetPresenceButtons(info).ToArray()
+            Assets = GetPresenceAssets(resource, info),
+            Buttons = GetPresenceButtons(resource, info).ToArray()
         };
     }
 
-    private static List<Button> GetPresenceButtons(CurrentPlayingInfo info)
+    private static List<Button> GetPresenceButtons(IServiceResource resource, CurrentPlayingInfo info)
     {
         var buttons = new List<Button>(3);
 
         if (info.SongUrl != string.Empty)
         {
-            Console.WriteLine("Adding listen on YT button.");
+            Console.WriteLine("Adding listen on 'platform' button.");
             buttons.Add(new Button()
             {
-                Label = "Listen on Youtube Music",
+                Label = $"Listen on {resource.Name}",
                 Url = $"{info.SongUrl}",
             });
         }
@@ -43,7 +44,7 @@ public static class SongPresenceHandler
         return buttons;
     }
 
-    private static Assets GetPresenceAssets(CurrentPlayingInfo info)
+    private static Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
     {
         var assets = new Assets()
         {
@@ -53,13 +54,13 @@ public static class SongPresenceHandler
 
         if (info.IsPaused)
         {
-            assets.SmallImageKey = "https://cdn-icons-png.flaticon.com/512/4181/4181163.png";
+            assets.SmallImageKey = resource.PausedIconKey;
             assets.SmallImageText = "Paused";
         }
         else
         {
             assets.SmallImageKey =
-                "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-music-icon.png";
+                resource.PlayingIconKey;
             assets.SmallImageText = "Playing";
         }
 

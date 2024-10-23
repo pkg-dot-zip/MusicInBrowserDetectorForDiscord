@@ -1,15 +1,25 @@
-﻿using OpenQA.Selenium;
+﻿using BrowserLib.Browser;
+using OpenQA.Selenium;
 using YtmRcpLib.Models;
 
-namespace YoutubeMusicDiscordRichPresenceCSharp;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-public class SongRetriever
+internal abstract class BaseRetriever : IServiceRetriever, IServiceResource
 {
-    public static CurrentPlayingInfo? FromBrowser(IWebDriver driver) => FromBrowser((IJavaScriptExecutor)driver);
+    public abstract string Name { get; }
+    public abstract string Url { get; }
+    public abstract string PlayingIconKey { get; }
+    public abstract string PausedIconKey { get; }
 
-    private static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
+    public CurrentPlayingInfo? FromBrowser(IBrowser browser)
     {
-        if (!GetWindowUrl(driver).Contains("music.youtube")) return null;
+        if (!GetWindowUrl(browser.GetDriver()).StartsWith(Url))
+        {
+            Console.Out.WriteLine($"Not on {Name} anymore!");
+            return null;
+        }
+
+        var driver = browser.GetDriver();
 
         var playingInfo = new CurrentPlayingInfo
         {
@@ -20,12 +30,12 @@ public class SongRetriever
         };
 
         if (!playingInfo.IsNothing()) return playingInfo;
-        
+
         Console.WriteLine("No song is currently playing or metadata is unavailable.");
         return null;
     }
 
-    private static MetaData GetMetaData(IJavaScriptExecutor driver)
+    public virtual MetaData GetMetaData(WebDriver driver)
     {
         const string metadataScript = """
                                                   return navigator.mediaSession.metadata ? {
@@ -51,13 +61,9 @@ public class SongRetriever
         };
     }
 
-    private static string GetWindowUrl(IJavaScriptExecutor driver)
-    {
-        var url = (string)driver.ExecuteScript("return window.location.href;");
-        return url ?? string.Empty;
-    }
+    public virtual string GetWindowUrl(WebDriver driver) => driver.Url;
 
-    private static bool GetPauseState(IJavaScriptExecutor driver)
+    public virtual bool GetPauseState(WebDriver driver)
     {
         const string pauseScript = """
                                        const videoElement = document.querySelector('video');
@@ -73,7 +79,7 @@ public class SongRetriever
         return isPaused;
     }
 
-    private static TimeInfo GetTimeInfo(IJavaScriptExecutor driver)
+    public virtual TimeInfo GetTimeInfo(WebDriver driver)
     {
         const string timeScript = """
                                   const videoElement = document.querySelector('video');
@@ -116,9 +122,9 @@ public class SongRetriever
         return new TimeInfo(currentTime, durationTime, remainingTime);
     }
 
-    private static string GetSongUrl(IJavaScriptExecutor driver)
+    public virtual string GetSongUrl(WebDriver driver)
     {
         // TODO: Implement!
-        return "https://music.youtube.com/";
+        return Url;
     }
 }

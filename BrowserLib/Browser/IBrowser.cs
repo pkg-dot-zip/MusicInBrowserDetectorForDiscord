@@ -13,11 +13,11 @@ public interface IBrowser
     public void OpenWindow(int port = DefaultPort);
 
     /// <summary>
-    /// Returns the <see cref="IWebDriver"/> to use for this browser.
+    /// Returns the <see cref="WebDriver"/> to use for this browser.
     /// </summary>
     /// <param name="port"></param>
     /// <returns></returns>
-    public IWebDriver GetDriver(int port = DefaultPort);
+    public WebDriver GetDriver(int port = DefaultPort);
 
     /// <summary>
     /// Checks if the browser is already running and readable.
