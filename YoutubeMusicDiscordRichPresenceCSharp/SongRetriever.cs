@@ -7,7 +7,7 @@ public class SongRetriever
 {
     public static CurrentPlayingInfo? FromBrowser(IWebDriver driver) => FromBrowser((IJavaScriptExecutor)driver);
 
-    public static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
+    private static CurrentPlayingInfo? FromBrowser(IJavaScriptExecutor driver)
     {
         if (!GetWindowUrl(driver).Contains("music.youtube")) return null;
 
