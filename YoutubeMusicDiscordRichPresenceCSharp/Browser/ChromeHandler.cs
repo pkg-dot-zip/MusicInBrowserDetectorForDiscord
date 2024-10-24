@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-namespace BrowserLib.Browser;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public class ChromeHandler : IBrowser
 {
@@ -32,28 +34,28 @@ public class ChromeHandler : IBrowser
     }
 
     // <inheritdoc>
-    public IWebDriver GetDriver(int port)
+    public WebDriver GetDriver(int port)
     {
-        if (_driver is not null && _driver.Url.Contains("music.youtube")) return _driver;
+        if (_driver is not null) return _driver;
 
         _driver = new ChromeDriver(new ChromeOptions
         {
             DebuggerAddress = $"localhost:{port}"
         });
 
-
-        var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
-
-        foreach (var windowHandle in windowHandles)
-        {
-            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab
-
-            // Skip if the current tab is not YouTube Music.
-            if (!_driver.Url.Contains("music.youtube.com")) continue;
-           
-            Console.WriteLine("Switched to YouTube Music tab.");
-            return _driver;
-        }
+        //
+        // var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
+        //
+        // foreach (var windowHandle in windowHandles)
+        // {
+        //     _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab.
+        //
+        //     // Skip if the current tab is not YouTube Music.
+        //     if (!_driver.Url.Contains("music.youtube.com")) continue;
+        //    
+        //     Console.WriteLine("Switched to YouTube Music tab.");
+        //     return _driver;
+        // }
 
         return _driver;
     }
@@ -83,5 +85,26 @@ public class ChromeHandler : IBrowser
     public void Close(int port)
     {
         _driver?.Quit();
+    }
+
+    public BaseRetriever? GetRetriever(int port)
+    {
+        // TODO: This assumes there is only 1 tab open! Iterate through all tabs instead using: GetDriver().SwitchTo().Window(windowHandle);
+
+        // Get all subclasses of BaseRetriever using reflection.
+        var retrieverTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(BaseRetriever)) && !t.IsAbstract)
+            .ToList();
+
+        foreach (var retrieverType in retrieverTypes)
+        {
+            var retrieverInstance = (BaseRetriever)Activator.CreateInstance(retrieverType);
+
+            // Check if we are in a page we can handle, like ytm.
+            if (GetDriver(port).Url.StartsWith(retrieverInstance.Url)) return retrieverInstance;
+        }
+
+        return null;
     }
 }

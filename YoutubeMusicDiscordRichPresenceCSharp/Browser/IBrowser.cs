@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-namespace BrowserLib.Browser;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public interface IBrowser
 {
@@ -13,11 +14,11 @@ public interface IBrowser
     public void OpenWindow(int port = DefaultPort);
 
     /// <summary>
-    /// Returns the <see cref="IWebDriver"/> to use for this browser.
+    /// Returns the <see cref="WebDriver"/> to use for this browser.
     /// </summary>
     /// <param name="port"></param>
     /// <returns></returns>
-    public IWebDriver GetDriver(int port = DefaultPort);
+    public WebDriver GetDriver(int port = DefaultPort);
 
     /// <summary>
     /// Checks if the browser is already running and readable.
@@ -34,4 +35,6 @@ public interface IBrowser
     public Task<bool> IsRunningAsync(int port = DefaultPort);
 
     public void Close(int port = DefaultPort);
+
+    public BaseRetriever? GetRetriever(int port = DefaultPort);
 }

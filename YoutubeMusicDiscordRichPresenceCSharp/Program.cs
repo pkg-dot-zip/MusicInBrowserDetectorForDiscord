@@ -1,4 +1,5 @@
-﻿using BrowserLib.Browser;
+﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 using YtmRcpLib.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
@@ -45,13 +46,20 @@ internal class Program
 
     private static void UpdatePresence(IBrowser browserHandler, int refreshInterval)
     {
+        var retriever = BrowserHandler.GetRetriever();
+        if (retriever is null)
+        {
+            Console.WriteLine("Couldn't find support service. Not updating.");
+            return;
+        }
+
         while (!_shouldQuit)
         {
-            var playingInfo = SongRetriever.FromBrowser(browserHandler.GetDriver());
+            var playingInfo = retriever.FromBrowser(browserHandler);
 
             if (playingInfo is not null)
             {
-                RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(playingInfo));
+                RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(retriever, playingInfo));
             }
             else
             {
