@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using YtmRcpLib.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 
@@ -10,6 +11,48 @@ internal class ScRetriever : BaseRetriever
     public override string PlayingIconKey => "https://img.freepik.com/premium-vector/soundcloud-logo_578229-231.jpg";
     public override string PausedIconKey => "https://cdn-icons-png.flaticon.com/512/190/190521.png";
 
+    public override TimeInfo GetTimeInfo(WebDriver driver)
+    {
+        const string timeScript = """
+                                      const progressBar = document.querySelector('.playbackTimeline__progressWrapper[role="progressbar"]');
+                                  
+                                      if (progressBar) {
+                                          const currentTime = parseFloat(progressBar.getAttribute('aria-valuenow'));  // Current time in seconds.
+                                          const durationTime = parseFloat(progressBar.getAttribute('aria-valuemax'));  // Total duration in seconds.
+                                          const remainingTime = durationTime - currentTime;  // Remaining time in seconds.
+                                  
+                                          return {
+                                              currentTime: currentTime,
+                                              durationTime: durationTime,
+                                              remainingTime: remainingTime
+                                          };
+                                      } else {
+                                          return null;  // Could not find the progress bar
+                                      }
+                                  """;
+
+        var timeInfoDict = (Dictionary<string, object>)driver.ExecuteScript(timeScript);
+
+        if (timeInfoDict is not null)
+        {
+            var timeInfo = new TimeInfo(
+                Convert.ToDouble(timeInfoDict["currentTime"]),
+                Convert.ToDouble(timeInfoDict["durationTime"]),
+                Convert.ToDouble(timeInfoDict["remainingTime"])
+            );
+
+            Console.WriteLine($"Current Time: {timeInfo.CurrentTime} seconds");
+            Console.WriteLine($"Duration: {timeInfo.DurationTime} seconds");
+            Console.WriteLine($"Remaining Time: {timeInfo.RemainingTime} seconds");
+
+            return timeInfo;
+        }
+        else
+        {
+            Console.WriteLine("Could not retrieve time information.");
+            return new TimeInfo(1, 30, 30 - 1); // TODO: Return null instead.
+        }
+    }
 
     public override bool GetPauseState(WebDriver driver)
     {
