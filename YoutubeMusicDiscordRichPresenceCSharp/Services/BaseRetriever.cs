@@ -79,7 +79,7 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
         return isPaused;
     }
 
-    public virtual TimeInfo GetTimeInfo(WebDriver driver)
+    public virtual TimeInfo? GetTimeInfo(WebDriver driver)
     {
         const string timeScript = """
                                   const videoElement = document.querySelector('video');

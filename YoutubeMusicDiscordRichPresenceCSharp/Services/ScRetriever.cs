@@ -11,7 +11,7 @@ internal class ScRetriever : BaseRetriever
     public override string PlayingIconKey => "https://img.freepik.com/premium-vector/soundcloud-logo_578229-231.jpg";
     public override string PausedIconKey => "https://cdn-icons-png.flaticon.com/512/190/190521.png";
 
-    public override TimeInfo GetTimeInfo(WebDriver driver)
+    public override TimeInfo? GetTimeInfo(WebDriver driver)
     {
         const string timeScript = """
                                       const progressBar = document.querySelector('.playbackTimeline__progressWrapper[role="progressbar"]');
@@ -47,11 +47,9 @@ internal class ScRetriever : BaseRetriever
 
             return timeInfo;
         }
-        else
-        {
-            Console.WriteLine("Could not retrieve time information.");
-            return new TimeInfo(1, 30, 30 - 1); // TODO: Return null instead.
-        }
+
+        Console.WriteLine("Could not retrieve time information.");
+        return null;
     }
 
     public override bool GetPauseState(WebDriver driver)
