@@ -63,68 +63,9 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
 
     public virtual string GetWindowUrl(WebDriver driver) => driver.Url;
 
-    public virtual bool GetPauseState(WebDriver driver)
-    {
-        const string pauseScript = """
-                                       const videoElement = document.querySelector('video');
-                                       if (videoElement) {
-                                           return videoElement.paused;  // Check if the video is paused
-                                       } else {
-                                           return null;
-                                       }
-                                   """;
+    public abstract bool GetPauseState(WebDriver driver);
 
-        var isPaused = (bool)driver.ExecuteScript(pauseScript);
-        Console.WriteLine($"Paused: {isPaused}");
-        return isPaused;
-    }
-
-    public virtual TimeInfo? GetTimeInfo(WebDriver driver)
-    {
-        const string timeScript = """
-                                  const videoElement = document.querySelector('video');
-                                  if (videoElement) {
-                                      return {
-                                          currentTime: videoElement.currentTime,
-                                          duration: videoElement.duration,
-                                          remainingTime: videoElement.duration - videoElement.currentTime
-                                      };
-                                  } else {
-                                      return null;
-                                  }
-                                  """;
-
-        var mediaInfo = (Dictionary<string, object>)driver.ExecuteScript(timeScript);
-
-        // Declaration + default values in case parsing fails.
-        double currentTime = 1;
-        double durationTime = 300;
-        double remainingTime = durationTime - currentTime;
-
-        if (mediaInfo is not null)
-        {
-            try
-            {
-                currentTime = double.Parse(mediaInfo["currentTime"].ToString() ?? string.Empty);
-                durationTime = double.Parse(mediaInfo["duration"].ToString() ?? string.Empty);
-                remainingTime = double.Parse(mediaInfo["remainingTime"].ToString() ?? string.Empty);
-            }
-            catch
-            {
-                Console.WriteLine("Couldn't retrieve time. Are you on YTM?");
-            }
-        }
-        else
-        {
-            Console.Out.WriteLine($"Couldn't retrieve {nameof(TimeInfo)}");
-        }
-
-        Console.WriteLine($"Current Time: {currentTime} seconds");
-        Console.WriteLine($"Total Duration: {durationTime} seconds");
-        Console.WriteLine($"Remaining Time: {remainingTime} seconds");
-
-        return new TimeInfo(currentTime, durationTime, remainingTime);
-    }
+    public abstract TimeInfo? GetTimeInfo(WebDriver driver);
 
     public virtual string GetSongUrl(WebDriver driver)
     {
