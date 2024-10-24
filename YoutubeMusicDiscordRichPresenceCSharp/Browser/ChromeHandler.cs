@@ -6,15 +6,12 @@ using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
-public class ChromeHandler : IBrowser
+public class ChromeHandler : BaseBrowserHandler
 {
-    private ChromeDriver? _driver;
-    private BaseRetriever? _retriever;
-
     // TODO: Pass path in params.
     // TODO: Throw if not valid here.
     // <inheritdoc>
-    public void OpenWindow(int port)
+    public override void OpenWindow(int port = IBrowser.DefaultPort)
     {
         string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Default path.
 
@@ -35,17 +32,17 @@ public class ChromeHandler : IBrowser
     }
 
     // <inheritdoc>
-    public WebDriver GetDriver(int port)
+    public override WebDriver GetDriver(int port = IBrowser.DefaultPort)
     {
-        if (_driver is not null) return _driver;
+        if (Driver is not null) return Driver;
 
-        _driver = new ChromeDriver(new ChromeOptions
+        Driver = new ChromeDriver(new ChromeOptions
         {
             DebuggerAddress = $"localhost:{port}"
         });
 
         // First time instead of just returning we also prepare the BaseRetriever.
-        var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
+        var windowHandles = Driver.WindowHandles; // Get all tabs or windows.
 
         // Get all subclasses of BaseRetriever using reflection.
         var retrieverTypes = Assembly.GetExecutingAssembly()
@@ -55,30 +52,27 @@ public class ChromeHandler : IBrowser
 
         foreach (var windowHandle in windowHandles)
         {
-            if (_retriever is not null) break; // Escape if already found a streaming service.
-            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab. You can see this in your browser.
+            if (Retriever is not null) break; // Escape if already found a streaming service.
+            Driver.SwitchTo().Window(windowHandle); // Switch to each window/tab. You can see this in your browser.
 
             foreach (var retrieverType in retrieverTypes)
             {
                 var retrieverInstance = (BaseRetriever)Activator.CreateInstance(retrieverType);
 
                 // Check if we are in a page we can handle, like ytm or sc.
-                if (_driver.Url.StartsWith(retrieverInstance.Url))
+                if (Driver.Url.StartsWith(retrieverInstance.Url))
                 {
-                    _retriever = retrieverInstance;
+                    Retriever = retrieverInstance;
                     break;
                 }
             }
         }
 
-        return _driver;
+        return Driver;
     }
 
     // <inheritdoc>
-    public bool IsRunning(int port) => IsRunningAsync(port).Result;
-
-    // <inheritdoc>
-    public async Task<bool> IsRunningAsync(int port)
+    public override async Task<bool> IsRunningAsync(int port = IBrowser.DefaultPort)
     {
         try
         {
@@ -94,12 +88,4 @@ public class ChromeHandler : IBrowser
             return false;
         }
     }
-
-    // <inheritdoc>
-    public void Close(int port)
-    {
-        _driver?.Quit();
-    }
-
-    public BaseRetriever? GetRetriever() => _retriever;
 }
