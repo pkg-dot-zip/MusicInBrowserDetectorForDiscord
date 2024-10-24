@@ -114,6 +114,10 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
                 Console.WriteLine("Couldn't retrieve time. Are you on YTM?");
             }
         }
+        else
+        {
+            Console.Out.WriteLine($"Couldn't retrieve {nameof(TimeInfo)}");
+        }
 
         Console.WriteLine($"Current Time: {currentTime} seconds");
         Console.WriteLine($"Total Duration: {durationTime} seconds");

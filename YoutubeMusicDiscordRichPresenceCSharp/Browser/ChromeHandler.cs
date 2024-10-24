@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -36,26 +36,26 @@ public class ChromeHandler : IBrowser
     // <inheritdoc>
     public WebDriver GetDriver(int port)
     {
-        if (_driver is not null && _driver.Url.Contains("music.youtube")) return _driver;
+        if (_driver is not null) return _driver;
 
         _driver = new ChromeDriver(new ChromeOptions
         {
             DebuggerAddress = $"localhost:{port}"
         });
 
-
-        var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
-
-        foreach (var windowHandle in windowHandles)
-        {
-            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab.
-
-            // Skip if the current tab is not YouTube Music.
-            if (!_driver.Url.Contains("music.youtube.com")) continue;
-           
-            Console.WriteLine("Switched to YouTube Music tab.");
-            return _driver;
-        }
+        //
+        // var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
+        //
+        // foreach (var windowHandle in windowHandles)
+        // {
+        //     _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab.
+        //
+        //     // Skip if the current tab is not YouTube Music.
+        //     if (!_driver.Url.Contains("music.youtube.com")) continue;
+        //    
+        //     Console.WriteLine("Switched to YouTube Music tab.");
+        //     return _driver;
+        // }
 
         return _driver;
     }
@@ -89,6 +89,8 @@ public class ChromeHandler : IBrowser
 
     public BaseRetriever? GetRetriever(int port)
     {
+        // TODO: This assumes there is only 1 tab open! Iterate through all tabs instead using: GetDriver().SwitchTo().Window(windowHandle);
+
         // Get all subclasses of BaseRetriever using reflection.
         var retrieverTypes = Assembly.GetExecutingAssembly()
             .GetTypes()
