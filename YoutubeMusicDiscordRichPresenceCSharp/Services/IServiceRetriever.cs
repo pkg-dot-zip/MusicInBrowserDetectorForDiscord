@@ -1,4 +1,4 @@
-﻿using BrowserLib.Browser;
+﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YtmRcpLib.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;

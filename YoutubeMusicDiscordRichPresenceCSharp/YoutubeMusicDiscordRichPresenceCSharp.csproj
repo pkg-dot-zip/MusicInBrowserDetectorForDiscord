@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BrowserLib\BrowserLib.csproj" />
     <ProjectReference Include="..\YtmRcpLib\YtmRcpLib.csproj" />
   </ItemGroup>
 

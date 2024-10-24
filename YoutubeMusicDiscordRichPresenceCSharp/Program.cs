@@ -1,4 +1,4 @@
-﻿using BrowserLib.Browser;
+﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YoutubeMusicDiscordRichPresenceCSharp.Services;
 using YtmRcpLib.Rpc;
 
@@ -46,7 +46,12 @@ internal class Program
 
     private static void UpdatePresence(IBrowser browserHandler, int refreshInterval)
     {
-        YtmRetriever retriever = new YtmRetriever();
+        var retriever = BrowserHandler.GetRetriever();
+        if (retriever is null)
+        {
+            Console.WriteLine("Couldn't find support service. Not updating.");
+            return;
+        }
 
         while (!_shouldQuit)
         {

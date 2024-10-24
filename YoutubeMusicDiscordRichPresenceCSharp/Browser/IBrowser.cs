@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-namespace BrowserLib.Browser;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public interface IBrowser
 {
@@ -34,4 +35,6 @@ public interface IBrowser
     public Task<bool> IsRunningAsync(int port = DefaultPort);
 
     public void Close(int port = DefaultPort);
+
+    public BaseRetriever? GetRetriever(int port = DefaultPort);
 }

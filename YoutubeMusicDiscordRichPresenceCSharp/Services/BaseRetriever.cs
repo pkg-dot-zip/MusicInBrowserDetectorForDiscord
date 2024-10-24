@@ -1,10 +1,10 @@
-﻿using BrowserLib.Browser;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YtmRcpLib.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-internal abstract class BaseRetriever : IServiceRetriever, IServiceResource
+public abstract class BaseRetriever : IServiceRetriever, IServiceResource
 {
     public abstract string Name { get; }
     public abstract string Url { get; }

@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
-namespace BrowserLib.Browser;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public class ChromeHandler : IBrowser
 {
@@ -83,5 +85,24 @@ public class ChromeHandler : IBrowser
     public void Close(int port)
     {
         _driver?.Quit();
+    }
+
+    public BaseRetriever? GetRetriever(int port)
+    {
+        // Get all subclasses of BaseRetriever using reflection.
+        var retrieverTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(BaseRetriever)) && !t.IsAbstract)
+            .ToList();
+
+        foreach (var retrieverType in retrieverTypes)
+        {
+            var retrieverInstance = (BaseRetriever)Activator.CreateInstance(retrieverType);
+
+            // Check if we are in a page we can handle, like ytm.
+            if (GetDriver(port).Url.StartsWith(retrieverInstance.Url)) return retrieverInstance;
+        }
+
+        return null;
     }
 }

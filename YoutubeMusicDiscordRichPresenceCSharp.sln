@@ -5,9 +5,7 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoutubeMusicDiscordRichPresenceCSharp", "YoutubeMusicDiscordRichPresenceCSharp\YoutubeMusicDiscordRichPresenceCSharp.csproj", "{663D8B5C-8D5E-4B44-B5B1-2DF00E409046}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YtmRcpLib", "YtmRcpLib\YtmRcpLib.csproj", "{F730F3CE-D7F6-4AA3-A3C7-EEE89CA78298}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowserLib", "BrowserLib\BrowserLib.csproj", "{8F91FDDF-F88E-4050-B043-2884F129DBB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YtmRcpLib", "YtmRcpLib\YtmRcpLib.csproj", "{F730F3CE-D7F6-4AA3-A3C7-EEE89CA78298}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{F730F3CE-D7F6-4AA3-A3C7-EEE89CA78298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F730F3CE-D7F6-4AA3-A3C7-EEE89CA78298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F730F3CE-D7F6-4AA3-A3C7-EEE89CA78298}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F91FDDF-F88E-4050-B043-2884F129DBB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F91FDDF-F88E-4050-B043-2884F129DBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F91FDDF-F88E-4050-B043-2884F129DBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F91FDDF-F88E-4050-B043-2884F129DBB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
