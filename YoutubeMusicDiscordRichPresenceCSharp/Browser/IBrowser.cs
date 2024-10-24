@@ -5,7 +5,7 @@ namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public interface IBrowser
 {
-    private const int DefaultPort = 9222;
+    public const int DefaultPort = 9222;
 
     /// <summary>
     /// Opens a window of the browser with the <i>--remote-debugging-port</i> parameter.
