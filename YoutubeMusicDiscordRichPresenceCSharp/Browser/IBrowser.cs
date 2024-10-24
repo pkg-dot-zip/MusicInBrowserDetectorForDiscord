@@ -36,5 +36,5 @@ public interface IBrowser
 
     public void Close(int port = DefaultPort);
 
-    public BaseRetriever? GetRetriever(int port = DefaultPort);
+    public BaseRetriever? GetRetriever();
 }

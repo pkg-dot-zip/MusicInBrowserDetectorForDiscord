@@ -1,5 +1,4 @@
 ﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser;
-using YoutubeMusicDiscordRichPresenceCSharp.Services;
 using YtmRcpLib.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
@@ -46,6 +45,7 @@ internal class Program
 
     private static void UpdatePresence(IBrowser browserHandler, int refreshInterval)
     {
+        BrowserHandler.GetDriver(); // Call this so retriever gets initialized. Great system cough cough :/
         var retriever = BrowserHandler.GetRetriever();
         if (retriever is null)
         {

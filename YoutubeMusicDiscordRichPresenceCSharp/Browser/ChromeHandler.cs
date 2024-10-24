@@ -9,6 +9,7 @@ namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 public class ChromeHandler : IBrowser
 {
     private ChromeDriver? _driver;
+    private BaseRetriever? _retriever;
 
     // TODO: Pass path in params.
     // TODO: Throw if not valid here.
@@ -43,19 +44,32 @@ public class ChromeHandler : IBrowser
             DebuggerAddress = $"localhost:{port}"
         });
 
-        //
-        // var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
-        //
-        // foreach (var windowHandle in windowHandles)
-        // {
-        //     _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab.
-        //
-        //     // Skip if the current tab is not YouTube Music.
-        //     if (!_driver.Url.Contains("music.youtube.com")) continue;
-        //    
-        //     Console.WriteLine("Switched to YouTube Music tab.");
-        //     return _driver;
-        // }
+        // First time instead of just returning we also prepare the BaseRetriever.
+        var windowHandles = _driver.WindowHandles; // Get all tabs or windows.
+
+        // Get all subclasses of BaseRetriever using reflection.
+        var retrieverTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(BaseRetriever)) && !t.IsAbstract)
+            .ToList();
+
+        foreach (var windowHandle in windowHandles)
+        {
+            if (_retriever is not null) break; // Escape if already found a streaming service.
+            _driver.SwitchTo().Window(windowHandle); // Switch to each window/tab. You can see this in your browser.
+
+            foreach (var retrieverType in retrieverTypes)
+            {
+                var retrieverInstance = (BaseRetriever)Activator.CreateInstance(retrieverType);
+
+                // Check if we are in a page we can handle, like ytm or sc.
+                if (_driver.Url.StartsWith(retrieverInstance.Url))
+                {
+                    _retriever = retrieverInstance;
+                    break;
+                }
+            }
+        }
 
         return _driver;
     }
@@ -87,24 +101,5 @@ public class ChromeHandler : IBrowser
         _driver?.Quit();
     }
 
-    public BaseRetriever? GetRetriever(int port)
-    {
-        // TODO: This assumes there is only 1 tab open! Iterate through all tabs instead using: GetDriver().SwitchTo().Window(windowHandle);
-
-        // Get all subclasses of BaseRetriever using reflection.
-        var retrieverTypes = Assembly.GetExecutingAssembly()
-            .GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(BaseRetriever)) && !t.IsAbstract)
-            .ToList();
-
-        foreach (var retrieverType in retrieverTypes)
-        {
-            var retrieverInstance = (BaseRetriever)Activator.CreateInstance(retrieverType);
-
-            // Check if we are in a page we can handle, like ytm.
-            if (GetDriver(port).Url.StartsWith(retrieverInstance.Url)) return retrieverInstance;
-        }
-
-        return null;
-    }
+    public BaseRetriever? GetRetriever() => _retriever;
 }
