@@ -14,11 +14,16 @@ internal class ScRetriever : BaseRetriever
     public override bool GetPauseState(WebDriver driver)
     {
         const string pauseScript = """
-                                       const audioElement = document.querySelector('audio');
-                                       if (audioElement) {
-                                           return audioElement.paused;  
+                                       const playPauseButton = document.querySelector('.playControl.sc-ir.playControls__control.playControls__play');
+                                   
+                                       if (playPauseButton) {
+                                           if (playPauseButton.classList.contains('playing')) {
+                                               return false;  // Song is playing here!
+                                           } else {
+                                               return true;
+                                           }
                                        } else {
-                                           return null;
+                                           return null;   // Could not find the play/pause button.
                                        }
                                    """;
 
