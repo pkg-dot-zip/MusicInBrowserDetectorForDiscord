@@ -14,7 +14,7 @@
 
 </div>
 
-<p align="center">A simple <a href="https://music.youtube.com/">YouTube Music</a> Rich Presence client for <a href="https://discord.com/">Discord</a> just like the built-in Spotify one!
+<p align="center">A simple <a href="https://music.youtube.com/">YouTube Music</a> (and others) Rich Presence client for <a href="https://discord.com/">Discord</a> just like the built-in Spotify one!
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 - [Authors](#authors)
 
 ## 🧐 About <a name="about"></a>
-An optimized and plug and play console application that automatically retrieves your YouTube Music from your browser.
+An optimized and plug and play console application that automatically retrieves your streaming service from your browser.
 
 ### What does it do? 🤔
 You know the Rich Presence that you see when your friends listen to [Spotify](https://open.spotify.com/)?
@@ -38,25 +38,33 @@ You know the Rich Presence that you see when your friends listen to [Spotify](ht
  <img width=640px src="docs/spotify_sonne.png" alt="Project logo"></a>
 </p>
 
-This project replicates that but for [YouTube Music](https://music.youtube.com/)! It will automatically retrieve all data from your currently opened browser,
-meaning that you only need to open YouTube Music in your browser and have Discord open for this to work. We truly live in the golden age! ✨
+This project replicates that but for [YouTube Music](https://music.youtube.com/) and other streaming services! It will automatically retrieve all data from your currently opened browser,
+meaning that you only need to open your streaming service in your browser and have Discord open for this to work. We truly live in the golden age! ✨
 
 #### Supported Browsers 🕸
 Please feel free to commit a PR to support more browsers, since there are [Selenium](https://www.selenium.dev/selenium/docs/api/dotnet/) webdrivers for other browsers too!
 
 | Browser | Currently Supported | Instructions |
 | ------- | --------- | ----- |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg) Chrome | ✅ | [Here](docs/_instructions_chrome.md) |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg) Firefox | ❌ | - |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg) Edge | ❌ | -|
-| [<img src="https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png" width="20"/>](https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png) Internet Explorer | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" width="20"/>]() Chrome | ✅ | [Here](docs/_instructions_chrome.md) |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" width="20"/>]() Firefox | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" width="20"/>]() Edge | ❌ | -|
+| [<img src="https://upload.wikimedia.org/wikipedia/en/9/95/Internet_Explorer_9.png" width="20"/>]() Internet Explorer | ❌* | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Tor_Browser_icon_%28New%29.png" width="20"/>]() Tor | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png" width="20"/>]() Opera | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png" width="20"/>]() Opera GX | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Brave_lion_icon.svg" width="20"/>]() Brave | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Vivaldi_web_browser_logo.svg/2053px-Vivaldi_web_browser_logo.svg.png" width="20"/>]() Vivaldi | ❌ | - |
+
+<sup><sub>* Internet explorer doesn't support any streaming service we support, hence we can not implement support for it.</sub></sup>
 
 #### Supported Streaming Services
-Obviously the project's original scope was only YouTube Music, hence it's the only currently supported. Adding support for other services is not a priority. 
+Obviously the project's original scope was only YouTube Music, but after widening the projects scope support for other services have also been implemented!
 
 | Streaming Service | Currently Supported |
 | ------- | --------- |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg" width="20"/>](https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg) YouTube Music | ✅ |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg" width="20"/>]() YouTube Music | ✅ |
+| [<img src="https://www.svgrepo.com/show/303135/soundcloud-logo.svg" width="20"/>]() SoundCloud | ✅ |
 
 ### Why?! 😱
 One of my friends listens to music on Spotify the entire day during work, so I can see what music he listens to. However, other people in my friendgroup use YouTube Music, which does not have rich presence support. This screamt for a solution!
@@ -78,8 +86,10 @@ There are indeed already multiple implementations for this. However, most of the
 - Shows the album (if applicable) the song is a part of! 💿
 - Artwork is supported and looks better than ever! 😍
 - Timestamp of where you are listening! ⌚
+- Unique graphics for when you pause your songs! 🎨
 - Button to listen along or download this client as well! 🎧
 - So performant you will not notice you are running this program! 🌪
+- Supports multiple streaming services! 🌎
 
 ## 🎈 Usage <a name="usage"></a>
 1. Open the Discord app. -> _This does not work in your browser!_
