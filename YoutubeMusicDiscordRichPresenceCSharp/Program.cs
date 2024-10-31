@@ -23,8 +23,6 @@ internal class Program
     {
         Initialize();
 
-        if (!browserHandler.IsRunning()) browserHandler.OpenWindow();
-
         Thread.Sleep(2000); // Wait 2 sec.
 
         Thread presenceThread = new Thread(() => UpdatePresence(browserHandler, refreshInterval))

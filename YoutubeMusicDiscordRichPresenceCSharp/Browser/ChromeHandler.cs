@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -8,28 +7,7 @@ namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 public class ChromeHandler : BaseBrowserHandler
 {
-    // TODO: Pass path in params.
-    // TODO: Throw if not valid here.
-    // <inheritdoc>
-    public override void OpenWindow(int port = IBrowser.DefaultPort)
-    {
-        string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Default path.
-
-        // Arguments for remote debugging.
-        string arguments = $@"--remote-debugging-port={port} --user-data-dir=""C:\ChromeDebug""";
-
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = chromePath,
-            Arguments = arguments,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true
-        });
-
-        Console.WriteLine($"Chrome started with remote debugging on port {port}.");
-    }
+    // string arguments = $@"--remote-debugging-port={port} --user-data-dir=""C:\ChromeDebug"""
 
     // <inheritdoc>
     public override WebDriver GetDriver(int port = IBrowser.DefaultPort)
@@ -69,23 +47,5 @@ public class ChromeHandler : BaseBrowserHandler
         }
 
         return Driver;
-    }
-
-    // <inheritdoc>
-    public override async Task<bool> IsRunningAsync(int port = IBrowser.DefaultPort)
-    {
-        try
-        {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync($"http://localhost:{port}/json");
-                return response.IsSuccessStatusCode;
-            }
-        }
-        // If an exception occurs (e.g., connection failure), Chrome is not running on the specified port.
-        catch (HttpRequestException)
-        {
-            return false;
-        }
     }
 }
