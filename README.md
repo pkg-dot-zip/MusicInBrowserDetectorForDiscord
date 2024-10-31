@@ -53,7 +53,7 @@ Please feel free to commit a PR to support more browsers, since there are [Selen
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Tor_Browser_icon_%28New%29.png" width="20"/>]() Tor | ❌ | - |
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png" width="20"/>]() Opera | ❌ | - |
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png" width="20"/>]() Opera GX | ❌ | - |
-| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Brave_lion_icon.svg" width="20"/>]() Brave | ❌ | - |
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Brave_lion_icon.svg" width="20"/>]() Brave | ✅ | Follow [Chrome](docs/_instructions_chrome.md) Instructions |
 | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Vivaldi_web_browser_logo.svg/2053px-Vivaldi_web_browser_logo.svg.png" width="20"/>]() Vivaldi | ❌ | - |
 
 <sup><sub>* Internet explorer doesn't support any streaming service we support, hence we can not implement support for it.</sub></sup>

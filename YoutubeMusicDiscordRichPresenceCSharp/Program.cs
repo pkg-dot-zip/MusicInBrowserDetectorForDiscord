@@ -69,6 +69,7 @@ internal class Program
         }
     }
 
+    // Grabs the correct BrowserHandler for the current running 
     private static IBrowser GetBrowserHandler()
     {
         var processlist = Process.GetProcesses();
@@ -84,6 +85,12 @@ internal class Program
             if (process.ProcessName == "chrome")
             {
                 Console.Out.WriteLine("Found Chrome!");
+                return new ChromeHandler();
+            }
+            
+            if (process.ProcessName == "brave")
+            {
+                Console.Out.WriteLine("Found Brave!");
                 return new ChromeHandler();
             }
         }

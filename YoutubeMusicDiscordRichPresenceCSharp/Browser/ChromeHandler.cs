@@ -5,6 +5,9 @@ using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
+/// <summary>
+/// Browser Handler that supports most Chromium browser, such as Chrome and Brave.
+/// </summary>
 public class ChromeHandler : BaseBrowserHandler
 {
     // string arguments = $@"--remote-debugging-port={port} --user-data-dir=""C:\ChromeDebug"""
