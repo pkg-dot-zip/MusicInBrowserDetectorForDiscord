@@ -3,7 +3,7 @@
  <img width=400px height=400px src="docs/mandatory_pepe.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">YT Music RPC Client</h3>
+<h3 align="center">Music In Browser Detector for Discord</h3>
 
 <div align="center">
 
