@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using OpenQA.Selenium;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YtmRcpLib.Rpc;
 
@@ -54,18 +55,27 @@ internal class Program
 
         while (!_shouldQuit)
         {
-            var playingInfo = retriever.FromBrowser(browserHandler);
-
-            if (playingInfo is not null)
+            try
             {
-                RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(retriever, playingInfo));
-            }
-            else
-            {
-                Console.WriteLine("Couldn't find song, thus no rpc set.");
-            }
+                var playingInfo = retriever.FromBrowser(browserHandler);
 
-            Thread.Sleep(refreshInterval);
+                if (playingInfo is not null)
+                {
+                    RpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(retriever, playingInfo));
+                }
+                else
+                {
+                    Console.WriteLine("Couldn't find song, thus no rpc set.");
+                }
+
+                Thread.Sleep(refreshInterval);
+            }
+            catch (NoSuchWindowException ex)
+            {
+                Console.Out.WriteLine("Looks like the browser window we were hooked too was closed. Disconnected.");
+                _shouldQuit = true;
+                Deinitialize();
+            }
         }
     }
 
@@ -112,5 +122,6 @@ internal class Program
         RpcHandler.Deinitialize();
         BrowserHandler.Close();
         Console.WriteLine("Deinitialized.");
+        Environment.Exit(0);
     }
 }
