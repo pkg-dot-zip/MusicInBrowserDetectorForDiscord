@@ -15,7 +15,7 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
     {
         if (!GetWindowUrl(browser.GetDriver()).StartsWith(Url))
         {
-            Console.Out.WriteLine($"Not on {Name} anymore!");
+            Console.Out.WriteLine("Not on {0} anymore!", Name);
             return null;
         }
 
@@ -48,9 +48,9 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
 
         var retrieval = (Dictionary<string, object>)driver.ExecuteScript(metadataScript);
 
-        Console.WriteLine($"Title: {retrieval["title"]}");
-        Console.WriteLine($"Artist: {retrieval["artist"]}");
-        Console.WriteLine($"Album: {retrieval["album"]}");
+        Console.WriteLine("Title: {0}", retrieval["title"]);
+        Console.WriteLine("Artist: {0}", retrieval["artist"]);
+        Console.WriteLine("Album: {0}", retrieval["album"]);
 
         return new MetaData()
         {

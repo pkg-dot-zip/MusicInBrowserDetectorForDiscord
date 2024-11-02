@@ -24,7 +24,7 @@ public static class SongPresenceHandler
 
         if (info.SongUrl != string.Empty)
         {
-            Console.WriteLine("Adding listen on 'platform' button.");
+            Console.WriteLine("Adding listen on {0} button.", resource.Name);
             buttons.Add(new Button()
             {
                 Label = $"Listen on {resource.Name}",

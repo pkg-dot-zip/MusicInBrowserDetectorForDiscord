@@ -27,7 +27,7 @@ internal partial class YtmRetriever : BaseRetriever
                                    """;
 
         var isPaused = (bool)driver.ExecuteScript(pauseScript);
-        Console.WriteLine($"Paused: {isPaused}");
+        Console.WriteLine("Paused: {0}", isPaused);
         return isPaused;
     }
 
@@ -39,7 +39,7 @@ internal partial class YtmRetriever : BaseRetriever
         if (TryGetTimeInfoFromAudio(driver, out var info2)) return info2;
 
         // If we can't retrieve by any means, we return null.
-        Console.Out.WriteLine($"Couldn't retrieve {nameof(TimeInfo)}");
+        Console.Out.WriteLine("Couldn't retrieve {0}", nameof(TimeInfo));
         return null;
     }
 
@@ -67,9 +67,9 @@ internal partial class YtmRetriever : BaseRetriever
         double durationTime = ConvertToSeconds(match.Groups[2].Value);
 
         Console.Out.WriteLine("Found time from UI.");
-        Console.Out.WriteLine($"CurrentTime: {currentTime}");
-        Console.Out.WriteLine($"durationTime: {durationTime}");
-        Console.Out.WriteLine($"remainingTime: {durationTime - currentTime}");
+        Console.Out.WriteLine("CurrentTime: {0}", currentTime);
+        Console.Out.WriteLine("durationTime: {0}", durationTime);
+        Console.Out.WriteLine("remainingTime: {0}", durationTime - currentTime);
 
         timeInfo = new TimeInfo(currentTime, durationTime, durationTime - currentTime);
         return true;
@@ -118,9 +118,9 @@ internal partial class YtmRetriever : BaseRetriever
                 var remainingTime = double.Parse(mediaInfo["remainingTime"].ToString() ?? string.Empty);
 
                 Console.Out.WriteLine("Found time from audio.");
-                Console.Out.WriteLine($"CurrentTime: {currentTime}");
-                Console.Out.WriteLine($"durationTime: {durationTime}");
-                Console.Out.WriteLine($"remainingTime: {remainingTime}");
+                Console.Out.WriteLine("CurrentTime: {0}", currentTime);
+                Console.Out.WriteLine("durationTime: {0}", durationTime);
+                Console.Out.WriteLine("remainingTime: {0}", remainingTime);
 
                 timeInfo = new TimeInfo(currentTime, durationTime, remainingTime);
                 return true;
