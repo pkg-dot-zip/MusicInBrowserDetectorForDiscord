@@ -41,9 +41,9 @@ internal class ScRetriever : BaseRetriever
                 Convert.ToDouble(timeInfoDict["remainingTime"])
             );
 
-            Console.WriteLine($"Current Time: {timeInfo.CurrentTime} seconds");
-            Console.WriteLine($"Duration: {timeInfo.DurationTime} seconds");
-            Console.WriteLine($"Remaining Time: {timeInfo.RemainingTime} seconds");
+            Console.WriteLine("Current Time: {0} seconds", timeInfo.CurrentTime);
+            Console.WriteLine("Duration: {0} seconds", timeInfo.DurationTime);
+            Console.WriteLine("Remaining Time: {0} seconds", timeInfo.RemainingTime);
 
             return timeInfo;
         }
@@ -72,11 +72,11 @@ internal class ScRetriever : BaseRetriever
 
         if (isPaused is null)
         {
-            Console.Out.WriteLine($"Couldn't retrieve {nameof(isPaused)}. Assuming false.");
+            Console.Out.WriteLine("Couldn't retrieve {0}. Assuming false.", nameof(isPaused));
             return false;
         }
 
-        Console.WriteLine($"Paused: {(bool)isPaused}");
+        Console.WriteLine("Paused: {0}", (bool)isPaused);
         return (bool)isPaused;
     }
 }

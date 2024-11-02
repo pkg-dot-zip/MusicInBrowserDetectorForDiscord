@@ -7,13 +7,9 @@ namespace YoutubeMusicDiscordRichPresenceCSharp;
 
 internal class Program
 {
-    private static readonly IBrowser BrowserHandler = GetBrowserHandler();
     private static bool _shouldQuit = false;
 
-    public static void Main(string[] args)
-    {
-        Run(BrowserHandler);
-    }
+    public static void Main(string[] args) => Run(GetBrowserHandler());
 
     /// <summary>
     /// Run the program.
@@ -28,7 +24,7 @@ internal class Program
 
         Thread presenceThread = new Thread(() => UpdatePresence(browserHandler, refreshInterval))
         {
-            Name = "ytmrpcupdatethread",
+            Name = "musicinbrowserrpcupdatethread",
             IsBackground = true,
         };
         presenceThread.Start();
@@ -40,16 +36,16 @@ internal class Program
         }
 
         presenceThread.Join();
-        Deinitialize();
+        Deinitialize(browserHandler);
     }
 
     private static void UpdatePresence(IBrowser browserHandler, int refreshInterval)
     {
-        BrowserHandler.GetDriver(); // Call this so retriever gets initialized. Great system cough cough :/
-        var retriever = BrowserHandler.GetRetriever();
+        browserHandler.GetDriver(); // Call this so retriever gets initialized. Great system cough cough :/
+        var retriever = browserHandler.GetRetriever();
         if (retriever is null)
         {
-            Console.WriteLine("Couldn't find support service. Not updating.");
+            Console.WriteLine("Couldn't find support for this service. Not updating.");
             return;
         }
 
@@ -74,7 +70,7 @@ internal class Program
             {
                 Console.Out.WriteLine("Looks like the browser window we were hooked too was closed. Disconnected.");
                 _shouldQuit = true;
-                Deinitialize();
+                Deinitialize(browserHandler);
             }
         }
     }
@@ -116,11 +112,11 @@ internal class Program
         Console.WriteLine("\n\n\tWrite quit (or q) to exit.\t\t");
     }
 
-    private static void Deinitialize()
+    private static void Deinitialize(IBrowser browserHandler)
     {
         Console.WriteLine("Deinitializing...");
         RpcHandler.Deinitialize();
-        BrowserHandler.Close();
+        browserHandler.Close();
         Console.WriteLine("Deinitialized.");
         Environment.Exit(0);
     }
