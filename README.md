@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/" rel="noopener">
+  <a href="https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/" rel="noopener">
  <img width=400px height=400px src="docs/mandatory_pepe.png" alt="Project logo"></a>
 </p>
 
@@ -7,10 +7,10 @@
 
 <div align="center">
 
-  [![Stars](https://img.shields.io/github/stars/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/stargazers)
-  [![GitHub Issues](https://img.shields.io/github/issues/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/issues)
-  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp.svg)](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/pulls)
-  ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/total)
+  [![Stars](https://img.shields.io/github/stars/pkg-dot-zip/MusicInBrowserDetectorForDiscord.svg)](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/stargazers)
+  [![GitHub Issues](https://img.shields.io/github/issues/pkg-dot-zip/MusicInBrowserDetectorForDiscord.svg)](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/issues)
+  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/pkg-dot-zip/MusicInBrowserDetectorForDiscord.svg)](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/pulls)
+  ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/pkg-dot-zip/MusicInBrowserDetectorForDiscord/total)
 
 </div>
 
@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/" rel="noopener">
+  <a href="https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/" rel="noopener">
  <img height=400px src="docs/example_crave.png" alt="Project logo"></a>
 </p>
 
@@ -34,7 +34,7 @@ An optimized and plug and play console application that automatically retrieves 
 ### What does it do? 🤔
 You know the Rich Presence that you see when your friends listen to [Spotify](https://open.spotify.com/)?
 <p align="center">
-  <a href="https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/" rel="noopener">
+  <a href="https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/" rel="noopener">
  <img width=640px src="docs/spotify_sonne.png" alt="Project logo"></a>
 </p>
 
@@ -78,7 +78,7 @@ There are indeed already multiple implementations for this. However, most of the
 
 ### Features 🌟
 <p align="center">
-  <a href="https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/" rel="noopener">
+  <a href="https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/" rel="noopener">
  <img width=640px src="docs/example_love_is_blind.png" alt="Project logo"></a>
 </p>
 
@@ -106,4 +106,4 @@ There are indeed already multiple implementations for this. However, most of the
 ## ✍️ Authors <a name = "authors"></a>
 - [@pkg-dot-zip](https://github.com/pkg-dot-zip) - Idea & Initial work.
 
-See also the list of [contributors](https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/contributors) who participated in this project.
