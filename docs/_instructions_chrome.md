@@ -1,6 +1,8 @@
 # How to use Chrome with the client?
 Setting up this project for Chrome is so trivial a child of 4 could do it! 👶 Let's get right to it! 😎
 
+You have two options! ✌2️⃣
+
 ## Manual (Recommended) ⭐
 1. Go to your Chrome shortcut and right-click -> properties. (_**Tip**: on the **taskbar** you can hold shift and right-click to change the properties!_) 📁
 
@@ -19,3 +21,7 @@ Setting up this project for Chrome is so trivial a child of 4 could do it! 👶 
 3. Boot your webbrowser. 💻
 4. Navigate to Youtube Music and play your favourite music. 🎧🎵
 5. Boot the client and you will see your presence appear! 🤯
+
+## Automatic
+1. Boot the client. It will open a new instance of Chrome (with remote debugging enabled) without your account and browser history. 🎭
+1. Navigate to Youtube Music, play your favourite music, and you will see the presence appear! 🤯
