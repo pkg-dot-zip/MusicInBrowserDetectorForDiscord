@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net.Mime;
 using OpenQA.Selenium;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YtmRcpLib.Rpc;
