@@ -37,7 +37,7 @@ public static class SongPresenceHandler
         buttons.Add(new Button()
         {
             Label = "Install Music In Browser Detector",
-            Url = "https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp",
+            Url = "https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord",
         });
 
         if (buttons.Count > 2) throw new InvalidOperationException("RPC has a limit of 2 buttons!");
