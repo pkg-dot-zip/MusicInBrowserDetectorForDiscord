@@ -36,7 +36,7 @@ public static class SongPresenceHandler
 
         buttons.Add(new Button()
         {
-            Label = "Install YTM RPC Client",
+            Label = "Install Music In Browser Detector",
             Url = "https://github.com/pkg-dot-zip/YoutubeMusicDiscordRichPresenceCSharp",
         });
 
@@ -55,13 +55,13 @@ public static class SongPresenceHandler
         if (info.IsPaused)
         {
             assets.SmallImageKey = resource.PausedIconKey;
-            assets.SmallImageText = "Paused";
+            assets.SmallImageText = $"Paused {resource.Name}";
         }
         else
         {
             assets.SmallImageKey =
                 resource.PlayingIconKey;
-            assets.SmallImageText = "Playing";
+            assets.SmallImageText = $"Playing {resource.Name}";
         }
 
         return assets;

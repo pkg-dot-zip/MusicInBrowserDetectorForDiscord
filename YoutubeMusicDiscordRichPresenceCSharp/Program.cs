@@ -24,7 +24,7 @@ internal class Program
 
         Thread presenceThread = new Thread(() => UpdatePresence(browserHandler, refreshInterval))
         {
-            Name = "ytmrpcupdatethread",
+            Name = "musicinbrowserrpcupdatethread",
             IsBackground = true,
         };
         presenceThread.Start();
@@ -45,7 +45,7 @@ internal class Program
         var retriever = browserHandler.GetRetriever();
         if (retriever is null)
         {
-            Console.WriteLine("Couldn't find support service. Not updating.");
+            Console.WriteLine("Couldn't find support for this service. Not updating.");
             return;
         }
 
