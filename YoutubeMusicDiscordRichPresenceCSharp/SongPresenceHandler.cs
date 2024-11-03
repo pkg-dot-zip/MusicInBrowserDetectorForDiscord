@@ -36,7 +36,7 @@ public static class SongPresenceHandler
 
         buttons.Add(new Button()
         {
-            Label = "Install Music In Browser Detector",
+            Label = "Music In Browser Detector",
             Url = "https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord",
         });
 
