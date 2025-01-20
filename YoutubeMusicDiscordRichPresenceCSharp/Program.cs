@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
+using YoutubeMusicDiscordRichPresenceCSharp.Browser.Retriever;
 using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
@@ -9,7 +9,9 @@ internal class Program
 {
     private static bool _shouldQuit = false;
 
-    public static void Main(string[] args) => Run(GetBrowserHandler());
+    private static readonly IBrowserRetriever BrowserRetriever = new BrowserRetriever();
+
+    public static void Main(string[] args) => Run(BrowserRetriever.GetBrowserHandler());
 
     /// <summary>
     /// Run the program.
@@ -73,35 +75,6 @@ internal class Program
                 Deinitialize(browserHandler);
             }
         }
-    }
-
-    // Grabs the correct BrowserHandler for the current running 
-    private static IBrowser GetBrowserHandler()
-    {
-        var processlist = Process.GetProcesses();
-
-        Console.Out.WriteLine("Looking for Browser:");
-
-        foreach (var process in processlist)
-        {
-            if (string.IsNullOrEmpty(process.MainWindowTitle)) continue; // Needs to have an open window.
-
-            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-
-            if (process.ProcessName == "chrome")
-            {
-                Console.Out.WriteLine("Found Chrome!");
-                return new ChromeHandler();
-            }
-            
-            if (process.ProcessName == "brave")
-            {
-                Console.Out.WriteLine("Found Brave!");
-                return new ChromeHandler();
-            }
-        }
-
-        throw new InvalidOperationException("Couldn't find an opened browser! Check our github repository for information on what browsers are supported.");
     }
 
     private static void Initialize()
