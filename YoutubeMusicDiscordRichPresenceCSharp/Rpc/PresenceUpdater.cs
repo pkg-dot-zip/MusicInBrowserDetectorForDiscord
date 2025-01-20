@@ -3,7 +3,7 @@ using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
-public class PresenceUpdater(IRpcHandler rpcHandler) : IPresenceUpdater
+public class PresenceUpdater(IRpcHandler rpcHandler, ISongPresenceHandler songPresenceHandler) : IPresenceUpdater
 {
     public bool UpdatePresence(IBrowser browserHandler)
     {
@@ -17,7 +17,7 @@ public class PresenceUpdater(IRpcHandler rpcHandler) : IPresenceUpdater
 
             if (playingInfo is not null)
             {
-                rpcHandler.SetPresence(SongPresenceHandler.GetSongPresence(retriever, playingInfo));
+                rpcHandler.SetPresence(songPresenceHandler.GetSongPresence(retriever, playingInfo));
             }
             else
             {

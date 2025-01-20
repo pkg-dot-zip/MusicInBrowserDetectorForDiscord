@@ -4,11 +4,11 @@ using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public static class SongPresenceHandler
+public class SongPresenceHandler : ISongPresenceHandler
 {
-    public static RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
+    public RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
     {
-        return new RichPresence()
+        return new RichPresence
         {
             Type = ActivityType.Listening,
             Details = GetPresenceDetails(info),
@@ -34,7 +34,7 @@ public static class SongPresenceHandler
 
         Console.WriteLine("Adding install client button.");
 
-        buttons.Add(new Button()
+        buttons.Add(new Button
         {
             Label = "Music In Browser Detector",
             Url = "https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord",
@@ -46,7 +46,7 @@ public static class SongPresenceHandler
 
     private static Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
     {
-        var assets = new Assets()
+        var assets = new Assets
         {
             LargeImageKey = $"{info.MetaData?.ArtworkUrl}",
             LargeImageText = $"{info.MetaData?.Album}",
@@ -72,7 +72,7 @@ public static class SongPresenceHandler
         if (info.IsPaused) return null;
         if (info.TimeInfo is null) return null;
 
-        return new Timestamps()
+        return new Timestamps
         {
             Start = DateTime.UtcNow.AddSeconds(-info.TimeInfo.CurrentTime),
             End = DateTime.UtcNow.AddSeconds(info.TimeInfo.RemainingTime)

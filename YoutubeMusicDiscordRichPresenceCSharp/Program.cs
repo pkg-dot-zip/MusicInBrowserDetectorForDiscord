@@ -23,6 +23,7 @@ internal static class Program
         // Util.
         services.AddSingleton<IRpcHandler, RpcHandler>();
         services.AddSingleton<IPresenceUpdater, PresenceUpdater>();
+        services.AddSingleton<ISongPresenceHandler, SongPresenceHandler>();
         services.AddSingleton<IBrowserRetriever, BrowserRetriever>();
         return services;
     }
