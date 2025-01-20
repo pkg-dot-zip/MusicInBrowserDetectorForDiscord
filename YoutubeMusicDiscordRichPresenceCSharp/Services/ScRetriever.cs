@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using YtmRcpLib.Models;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 

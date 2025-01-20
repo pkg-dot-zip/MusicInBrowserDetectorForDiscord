@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System.Text.RegularExpressions;
-using YtmRcpLib.Models;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 
