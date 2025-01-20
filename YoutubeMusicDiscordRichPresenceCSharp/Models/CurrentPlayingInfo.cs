@@ -1,4 +1,4 @@
-﻿namespace YtmRcpLib.Models;
+﻿namespace YoutubeMusicDiscordRichPresenceCSharp.Models;
 
 public class CurrentPlayingInfo
 {

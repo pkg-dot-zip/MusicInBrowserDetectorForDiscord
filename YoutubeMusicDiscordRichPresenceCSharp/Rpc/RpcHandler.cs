@@ -1,7 +1,7 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Logging;
 
-namespace YtmRcpLib.Rpc;
+namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
 public static class RpcHandler
 {

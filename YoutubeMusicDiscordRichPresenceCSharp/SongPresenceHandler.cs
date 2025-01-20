@@ -1,6 +1,6 @@
 ﻿using DiscordRPC;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 using YoutubeMusicDiscordRichPresenceCSharp.Services;
-using YtmRcpLib.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 

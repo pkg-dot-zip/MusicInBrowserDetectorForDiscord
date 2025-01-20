@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using OpenQA.Selenium;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
-using YtmRcpLib.Rpc;
+using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 

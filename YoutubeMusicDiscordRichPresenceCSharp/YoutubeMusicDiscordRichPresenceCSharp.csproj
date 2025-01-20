@@ -14,8 +14,4 @@
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="4.14.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\YtmRcpLib\YtmRcpLib.csproj" />
-  </ItemGroup>
-
 </Project>
