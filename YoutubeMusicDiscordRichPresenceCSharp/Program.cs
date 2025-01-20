@@ -1,14 +1,29 @@
-﻿using YoutubeMusicDiscordRichPresenceCSharp.Browser.Retriever;
+﻿using Microsoft.Extensions.DependencyInjection;
+using YoutubeMusicDiscordRichPresenceCSharp.Browser.Retriever;
 using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-internal class Program
+internal static class Program
 {
     public static void Main(string[] args)
     {
-        var rpcHandler = new RpcHandler();
-        var program = new MusicBrowserDetectorProgram(new BrowserRetriever(), new PresenceUpdater(rpcHandler), rpcHandler);
+        var serviceCollection = new ServiceCollection();
+        var serviceProvider = serviceCollection.AddServices().BuildServiceProvider();
+
+        var program = serviceProvider.GetRequiredService<MusicBrowserDetectorProgram>();
         program.Run();
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        // Main Program.
+        services.AddSingleton<MusicBrowserDetectorProgram>();
+
+        // Util.
+        services.AddSingleton<IRpcHandler, RpcHandler>();
+        services.AddSingleton<IPresenceUpdater, PresenceUpdater>();
+        services.AddSingleton<IBrowserRetriever, BrowserRetriever>();
+        return services;
     }
 }
