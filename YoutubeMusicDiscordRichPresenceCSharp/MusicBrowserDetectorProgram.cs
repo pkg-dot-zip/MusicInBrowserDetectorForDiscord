@@ -6,11 +6,10 @@ using Timer = System.Timers.Timer;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever)
+public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever, IPresenceUpdater presenceUpdater, IRpcHandler rpcHandler)
 {
     private bool _shouldQuit = false;
     private readonly IBrowser _browserHandler = browserRetriever.GetBrowserHandler();
-    private readonly PresenceUpdater _presenceUpdater = new PresenceUpdater();
     private readonly Timer _timer = new Timer
     {
         AutoReset = true,
@@ -54,13 +53,13 @@ public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever)
         // TODO: Only do this once.
         _browserHandler.GetDriver(); // Call this so retriever gets initialized. Great system cough cough :/
 
-        _presenceUpdater.UpdatePresence(_browserHandler);
+        presenceUpdater.UpdatePresence(_browserHandler);
     }
 
     private void Initialize()
     {
         Console.WriteLine("Initializing...");
-        RpcHandler.Initialize();
+        rpcHandler.Initialize();
         Console.WriteLine("Initialized.");
         Console.WriteLine("\n\n\tWrite quit (or q) to exit.\t\t");
 
@@ -71,7 +70,7 @@ public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever)
     {
         _timer.Elapsed -= OnTimerElapsed;
         Console.WriteLine("Deinitializing...");
-        RpcHandler.Deinitialize();
+        rpcHandler.DeInitialize();
         _browserHandler.Close();
         Console.WriteLine("Deinitialized.");
         Environment.Exit(0);

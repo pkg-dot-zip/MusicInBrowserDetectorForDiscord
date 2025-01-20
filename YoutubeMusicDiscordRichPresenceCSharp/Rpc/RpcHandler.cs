@@ -3,28 +3,34 @@ using DiscordRPC.Logging;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
-public static class RpcHandler
+public class RpcHandler : IDisposable, IRpcHandler
 {
-    private static readonly DiscordRpcClient Client = new("1297469080273420329");
+    private const string ApplicationId = "1297469080273420329";
+    private readonly DiscordRpcClient _client = new(ApplicationId);
 
-    public static void Initialize()
+    public void Initialize()
     {
-        Client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+        _client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
-        Client.OnReady += (_, e) => { Console.WriteLine("Received Ready from user {0}", e.User.Username); };
+        _client.OnReady += (_, e) => { Console.WriteLine("Received Ready from user {0}", e.User.Username); };
 
-        Client.OnPresenceUpdate += (_, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
+        _client.OnPresenceUpdate += (_, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
 
-        Client.Initialize(); //Connect to the RPC.
+        _client.Initialize(); // Connect to the RPC.
     }
 
-    public static void SetPresence(RichPresence presence)
+    public void SetPresence(RichPresence presence)
     {
-        Client.SetPresence(presence);
+        _client.SetPresence(presence);
     }
 
-    public static void Deinitialize()
+    public void DeInitialize()
     {
-        Client.Dispose();
+        Dispose();
+    }
+
+    public void Dispose()
+    {
+        _client.Dispose();
     }
 }
