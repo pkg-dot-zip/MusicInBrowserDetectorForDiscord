@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser.Retriever;
 using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
@@ -19,6 +21,18 @@ internal static class Program
     {
         // Main Program.
         services.AddSingleton<MusicBrowserDetectorProgram>();
+
+        // Logger.
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .CreateLogger();
+
+        services.AddLogging(loggingBuilder =>
+        {
+            loggingBuilder.ClearProviders();
+            loggingBuilder.AddSerilog();
+        });
 
         // Util.
         services.AddSingleton<IRpcHandler, RpcHandler>();

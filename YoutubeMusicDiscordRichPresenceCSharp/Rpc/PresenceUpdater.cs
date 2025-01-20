@@ -1,9 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Rpc;
 
-public class PresenceUpdater(IRpcHandler rpcHandler, ISongPresenceHandler songPresenceHandler) : IPresenceUpdater
+public class PresenceUpdater(ILogger<PresenceUpdater> logger, IRpcHandler rpcHandler, ISongPresenceHandler songPresenceHandler) : IPresenceUpdater
 {
     public bool UpdatePresence(IBrowser browserHandler)
     {
@@ -21,14 +22,14 @@ public class PresenceUpdater(IRpcHandler rpcHandler, ISongPresenceHandler songPr
             }
             else
             {
-                Console.WriteLine("Couldn't find song, thus no rpc set.");
+                logger.LogInformation("Couldn't find song, thus no rpc set.");
             }
 
             return true;
         }
         catch (NoSuchWindowException ex)
         {
-            Console.Out.WriteLine("Looks like the browser window we were hooked too was closed. Disconnected.");
+            logger.LogWarning("Looks like the browser window we were hooked too was closed. Disconnected.");
             return false;
         }
     }

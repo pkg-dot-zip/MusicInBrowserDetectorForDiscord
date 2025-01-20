@@ -1,4 +1,5 @@
 ﻿using System.Timers;
+using Microsoft.Extensions.Logging;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser;
 using YoutubeMusicDiscordRichPresenceCSharp.Browser.Retriever;
 using YoutubeMusicDiscordRichPresenceCSharp.Rpc;
@@ -6,10 +7,15 @@ using Timer = System.Timers.Timer;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever, IPresenceUpdater presenceUpdater, IRpcHandler rpcHandler)
+public class MusicBrowserDetectorProgram(
+    ILogger<MusicBrowserDetectorProgram> logger,
+    IBrowserRetriever browserRetriever,
+    IPresenceUpdater presenceUpdater,
+    IRpcHandler rpcHandler)
 {
     private bool _shouldQuit = false;
     private readonly IBrowser _browserHandler = browserRetriever.GetBrowserHandler();
+
     private readonly Timer _timer = new Timer
     {
         AutoReset = true,
@@ -36,16 +42,16 @@ public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever, IPr
 
     private void StartTimer()
     {
-        Console.WriteLine("Starting Timer...");
+        logger.LogInformation("Starting Timer...");
         _timer.Start();
-        Console.WriteLine("Started Timer.");
+        logger.LogInformation("Started Timer.");
     }
 
     private void StopTimer()
     {
-        Console.WriteLine("Stopping Timer...");
+        logger.LogInformation("Stopping Timer...");
         _timer.Stop();
-        Console.WriteLine("Stopped Timer.");
+        logger.LogInformation("Stopped Timer.");
     }
 
     private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
@@ -58,10 +64,10 @@ public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever, IPr
 
     private void Initialize()
     {
-        Console.WriteLine("Initializing...");
+        logger.LogInformation("Initializing...");
         rpcHandler.Initialize();
-        Console.WriteLine("Initialized.");
-        Console.WriteLine("\n\n\tWrite quit (or q) to exit.\t\t");
+        logger.LogInformation("Initialized.");
+        logger.LogInformation("\n\n\tWrite quit (or q) to exit.\t\t");
 
         _timer.Elapsed += OnTimerElapsed;
     }
@@ -69,10 +75,10 @@ public class MusicBrowserDetectorProgram(IBrowserRetriever browserRetriever, IPr
     private void DeInitialize()
     {
         _timer.Elapsed -= OnTimerElapsed;
-        Console.WriteLine("Deinitializing...");
+        logger.LogInformation("Deinitializing...");
         rpcHandler.DeInitialize();
         _browserHandler.Close();
-        Console.WriteLine("Deinitialized.");
+        logger.LogInformation("Deinitialized.");
         Environment.Exit(0);
     }
 }

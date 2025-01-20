@@ -1,10 +1,11 @@
 ﻿using DiscordRPC;
+using Microsoft.Extensions.Logging;
 using YoutubeMusicDiscordRichPresenceCSharp.Models;
 using YoutubeMusicDiscordRichPresenceCSharp.Services;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public class SongPresenceHandler : ISongPresenceHandler
+public class SongPresenceHandler(ILogger<SongPresenceHandler> logger) : ISongPresenceHandler
 {
     public RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
     {
@@ -18,13 +19,13 @@ public class SongPresenceHandler : ISongPresenceHandler
         };
     }
 
-    private static List<Button> GetPresenceButtons(IServiceResource resource, CurrentPlayingInfo info)
+    private List<Button> GetPresenceButtons(IServiceResource resource, CurrentPlayingInfo info)
     {
         var buttons = new List<Button>(3);
 
         if (info.SongUrl != string.Empty)
         {
-            Console.WriteLine("Adding listen on {0} button.", resource.Name);
+            logger.LogInformation("Adding listen on {0} button.", resource.Name);
             buttons.Add(new Button()
             {
                 Label = $"Listen on {resource.Name}",
@@ -32,7 +33,7 @@ public class SongPresenceHandler : ISongPresenceHandler
             });
         }
 
-        Console.WriteLine("Adding install client button.");
+        logger.LogInformation("Adding install client button.");
 
         buttons.Add(new Button
         {
@@ -44,7 +45,7 @@ public class SongPresenceHandler : ISongPresenceHandler
         return buttons;
     }
 
-    private static Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
+    private Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
     {
         var assets = new Assets
         {
@@ -67,7 +68,7 @@ public class SongPresenceHandler : ISongPresenceHandler
         return assets;
     }
 
-    private static Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
+    private Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
     {
         if (info.IsPaused) return null;
         if (info.TimeInfo is null) return null;
@@ -79,5 +80,5 @@ public class SongPresenceHandler : ISongPresenceHandler
         };
     }
 
-    private static string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.MetaData?.Artist} - {info.MetaData?.Title}";
+    private string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.MetaData?.Artist} - {info.MetaData?.Title}";
 }
