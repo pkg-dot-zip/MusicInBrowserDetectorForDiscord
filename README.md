@@ -104,6 +104,4 @@ There are indeed already multiple implementations for this. However, most of the
 - [Discord RPC C#](https://github.com/Lachee/discord-rpc-csharp) - C# custom implementation for Discord Rich Presence. For our project we are using a [prerelease](https://github.com/Lachee/discord-rpc-csharp/releases/tag/v1.3.0)
 
 ## ✍️ Authors <a name = "authors"></a>
-- [@pkg-dot-zip](https://github.com/pkg-dot-zip) - Idea & Initial work.
-
-See also the list of [contributors](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/contributors) who participated in this project.
+See the list of [contributors](https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord/contributors) who participated in this project.

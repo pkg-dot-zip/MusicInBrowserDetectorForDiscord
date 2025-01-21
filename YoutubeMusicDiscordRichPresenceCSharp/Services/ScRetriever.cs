@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using YtmRcpLib.Models;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp.Services;
 
@@ -50,6 +50,12 @@ internal class ScRetriever : BaseRetriever
 
         Console.WriteLine("Could not retrieve time information.");
         return null;
+    }
+
+    public override string GetSongUrl(WebDriver driver)
+    {
+        // TODO: Implement.
+        return Url;
     }
 
     public override bool GetPauseState(WebDriver driver)

@@ -1,14 +1,15 @@
 ﻿using DiscordRPC;
+using Microsoft.Extensions.Logging;
+using YoutubeMusicDiscordRichPresenceCSharp.Models;
 using YoutubeMusicDiscordRichPresenceCSharp.Services;
-using YtmRcpLib.Models;
 
 namespace YoutubeMusicDiscordRichPresenceCSharp;
 
-public static class SongPresenceHandler
+public class SongPresenceHandler(ILogger<SongPresenceHandler> logger) : ISongPresenceHandler
 {
-    public static RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
+    public RichPresence GetSongPresence(IServiceResource resource, CurrentPlayingInfo info)
     {
-        return new RichPresence()
+        return new RichPresence
         {
             Type = ActivityType.Listening,
             Details = GetPresenceDetails(info),
@@ -18,13 +19,13 @@ public static class SongPresenceHandler
         };
     }
 
-    private static List<Button> GetPresenceButtons(IServiceResource resource, CurrentPlayingInfo info)
+    private List<Button> GetPresenceButtons(IServiceResource resource, CurrentPlayingInfo info)
     {
         var buttons = new List<Button>(3);
 
         if (info.SongUrl != string.Empty)
         {
-            Console.WriteLine("Adding listen on {0} button.", resource.Name);
+            logger.LogInformation("Adding listen on {0} button.", resource.Name);
             buttons.Add(new Button()
             {
                 Label = $"Listen on {resource.Name}",
@@ -32,9 +33,9 @@ public static class SongPresenceHandler
             });
         }
 
-        Console.WriteLine("Adding install client button.");
+        logger.LogInformation("Adding install client button.");
 
-        buttons.Add(new Button()
+        buttons.Add(new Button
         {
             Label = "Music In Browser Detector",
             Url = "https://github.com/pkg-dot-zip/MusicInBrowserDetectorForDiscord",
@@ -44,9 +45,9 @@ public static class SongPresenceHandler
         return buttons;
     }
 
-    private static Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
+    private Assets GetPresenceAssets(IServiceResource resource, CurrentPlayingInfo info)
     {
-        var assets = new Assets()
+        var assets = new Assets
         {
             LargeImageKey = $"{info.MetaData?.ArtworkUrl}",
             LargeImageText = $"{info.MetaData?.Album}",
@@ -67,17 +68,17 @@ public static class SongPresenceHandler
         return assets;
     }
 
-    private static Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
+    private Timestamps? GetPresenceTimestamps(CurrentPlayingInfo info)
     {
         if (info.IsPaused) return null;
         if (info.TimeInfo is null) return null;
 
-        return new Timestamps()
+        return new Timestamps
         {
             Start = DateTime.UtcNow.AddSeconds(-info.TimeInfo.CurrentTime),
             End = DateTime.UtcNow.AddSeconds(info.TimeInfo.RemainingTime)
         };
     }
 
-    private static string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.MetaData?.Artist} - {info.MetaData?.Title}";
+    private string GetPresenceDetails(CurrentPlayingInfo info) => $"{info.MetaData?.Artist} - {info.MetaData?.Title}";
 }
