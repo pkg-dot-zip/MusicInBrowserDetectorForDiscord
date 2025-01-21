@@ -1,5 +1,6 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Logging;
+using DiscordRPC.Message;
 using Microsoft.Extensions.Logging;
 using LogLevel = DiscordRPC.Logging.LogLevel;
 
@@ -12,13 +13,22 @@ public class RpcHandler(ILogger<RpcHandler> logger) : IDisposable, IRpcHandler
 
     public void Initialize()
     {
-        _client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+        _client.Logger = new ConsoleLogger { Level = LogLevel.Warning };
 
-        _client.OnReady += (_, e) => { logger.LogInformation("Received Ready from user {username}", e.User.Username); };
-
-        _client.OnPresenceUpdate += (_, e) => { logger.LogInformation("Received Update! {presence}", e.Presence); };
+        _client.OnReady += OnReady;
+        _client.OnPresenceUpdate += OnPresenceUpdate;
 
         _client.Initialize(); // Connect to the RPC.
+    }
+
+    private void OnReady(object sender, ReadyMessage e)
+    {
+        logger.LogInformation("Received Ready from user {username}", e.User.Username);
+    }
+
+    private void OnPresenceUpdate(object sender, PresenceMessage e)
+    {
+        logger.LogInformation("Received Update! {presence}", e.Presence);
     }
 
     public void SetPresence(RichPresence presence)
@@ -28,6 +38,8 @@ public class RpcHandler(ILogger<RpcHandler> logger) : IDisposable, IRpcHandler
 
     public void DeInitialize()
     {
+        _client.OnReady -= OnReady;
+        _client.OnPresenceUpdate -= OnPresenceUpdate;
         Dispose();
     }
 
