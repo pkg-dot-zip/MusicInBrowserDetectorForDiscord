@@ -67,9 +67,5 @@ public abstract class BaseRetriever : IServiceRetriever, IServiceResource
 
     public abstract TimeInfo? GetTimeInfo(WebDriver driver);
 
-    public virtual string GetSongUrl(WebDriver driver)
-    {
-        // TODO: Implement!
-        return Url;
-    }
+    public abstract string GetSongUrl(WebDriver driver);
 }

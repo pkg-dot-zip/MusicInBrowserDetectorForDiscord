@@ -42,6 +42,33 @@ internal partial class YtmRetriever : BaseRetriever
         return null;
     }
 
+    public override string GetSongUrl(WebDriver driver)
+    {
+        var songLink = driver.FindElements(By.ClassName("ytp-title-link")).FirstOrDefault();
+
+        if (songLink is null) return Url; // If we can't find the specific song url we just return the url to the service.
+
+        // Extract the song code from the element.
+        var uri = new Uri(songLink.GetAttribute("href"));
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        string? songCode = query["v"];
+
+        if (songCode is not null)
+        {
+            Console.WriteLine($"Song Code: {songCode}");
+
+            var songUrl = Url + "watch?v=" + songCode;
+
+            Console.WriteLine($"Song Url: {songUrl}");
+            return songUrl;
+        }
+        else
+        {
+            Console.WriteLine("Could not find song code.");
+            return Url; // If we can't find the specific song url we just return the url to the service.
+        }
+    }
+
     private bool TryGetTimeInfoFromUi(WebDriver driver, out TimeInfo? timeInfo)
     {
         var timeInfoElement = driver.FindElement(By.CssSelector("span.time-info.style-scope.ytmusic-player-bar")); // This element only contains the text "m:ss / m:ss".

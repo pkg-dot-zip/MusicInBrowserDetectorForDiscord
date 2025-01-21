@@ -52,6 +52,12 @@ internal class ScRetriever : BaseRetriever
         return null;
     }
 
+    public override string GetSongUrl(WebDriver driver)
+    {
+        // TODO: Implement.
+        return Url;
+    }
+
     public override bool GetPauseState(WebDriver driver)
     {
         const string pauseScript = """
